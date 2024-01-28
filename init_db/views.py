@@ -1,0 +1,120 @@
+from django.shortcuts import render
+from django.conf import settings
+from django.db import connection
+import pandas as pd
+from sqlalchemy import create_engine
+import os
+from .models import (
+    FoodModel,
+    DrinkModel,
+    BarModel,
+    SightModel,
+    HotelModel,
+    RestaurantModel,
+)
+
+# Create your views here.
+static_root = settings.STATIC_URL
+db_dir = settings.DB_DIR
+
+
+def init_food(request):
+    path = os.path.join(settings.BASE_DIR, "static", "food.csv")
+
+    conn = create_engine(f"sqlite:///{db_dir}")
+
+    csv_file = pd.read_csv(path)
+    result = csv_file.to_sql("food", con=conn, if_exists="replace", index=False)
+
+    content = {
+        "path": path,
+        "file": csv_file,
+        "length": len(csv_file),
+        "result": result,
+    }
+    return render(request, "init/index.html", context=content)
+
+
+def init_drink(request):
+    path = os.path.join(settings.BASE_DIR, "static", "drink.csv")
+
+    conn = create_engine(f"sqlite:///{db_dir}")
+
+    csv_file = pd.read_csv(path)
+    result = csv_file.to_sql("drink", con=conn, if_exists="replace", index=False)
+
+    content = {
+        "path": path,
+        "file": csv_file,
+        "length": len(csv_file),
+        "result": result,
+    }
+    return render(request, "init/index.html", context=content)
+
+
+def init_bar(request):
+    path = os.path.join(settings.BASE_DIR, "static", "bar.csv")
+
+    conn = create_engine(f"sqlite:///{db_dir}")
+
+    csv_file = pd.read_csv(path)
+    result = csv_file.to_sql("bar", con=conn, if_exists="replace", index=False)
+
+    content = {
+        "path": path,
+        "file": csv_file,
+        "length": len(csv_file),
+        "result": result,
+    }
+    return render(request, "init/index.html", context=content)
+
+
+def init_sight(request):
+    path = os.path.join(settings.BASE_DIR, "static", "sight.csv")
+
+    conn = create_engine(f"sqlite:///{db_dir}")
+
+    csv_file = pd.read_csv(path)
+    result = csv_file.to_sql("sight", con=conn, if_exists="replace", index=False)
+
+    content = {
+        "path": path,
+        "file": csv_file,
+        "length": len(csv_file),
+        "result": result,
+    }
+    return render(request, "init/index.html", context=content)
+
+
+def init_hotel(request):
+    path = os.path.join(settings.BASE_DIR, "static", "hotel.csv")
+
+    conn = create_engine(f"sqlite:///{db_dir}")
+
+    csv_file = pd.read_csv(path)
+    result = csv_file.to_sql("hotel", con=conn, if_exists="replace", index=False)
+
+    content = {
+        "path": path,
+        "file": csv_file,
+        "length": len(csv_file),
+        "result": result,
+    }
+    return render(request, "init/index.html", context=content)
+
+
+def init_restaurant(request):
+    path = os.path.join(settings.BASE_DIR, "static", "restaurant.csv")
+
+    conn = create_engine(f"sqlite:///{db_dir}")
+
+    csv_file = pd.read_csv(path)
+    result = csv_file.to_sql("restaurant", con=conn, if_exists="replace", index=False)
+
+    content = {
+        "path": path,
+        "file": csv_file,
+        "length": len(csv_file),
+        "result": result,
+    }
+    return render(request, "init/index.html", context=content)
