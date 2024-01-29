@@ -1,4 +1,4 @@
-.env.*local
+.env*.local
 client_secret_545237140133-hof05nbsrvv0aqmmddb84thh6jbe6vmt.apps.googleusercontent.com.*
 venv
 .vscode

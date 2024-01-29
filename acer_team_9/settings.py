@@ -140,8 +140,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = os.path.join(BASE_DIR, "static/")
-# STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
+STATIC_URL = "static/"
+STATICFILES_DIRS = [BASE_DIR / "static"]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -160,11 +160,8 @@ SOCIALACCOUNT_PROVIDERS = {
         "sites": [3],
     },
     "line": {
-        "APP": {
-            "client_id": "2002992889",
-            "secret": "89009cdbef7bce913eb09988fb8231b8",
-        },
         "SCOPE": ["profile", "openid", "email"],
+        "AUTH_PARAMS": {"access_type": "online"},
         "redirect_url": "http://127.0.0.1:8000/line/login/callback/",
         "sites": [4],
     },
@@ -172,10 +169,3 @@ SOCIALACCOUNT_PROVIDERS = {
 
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
-
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"  # new
-EMAIL_HOST = "smtp.gmail.com"  # new
-EMAIL_PORT = 587  # new
-EMAIL_HOST_USER = "106025017anthonyhsu@gmail.com"  # new
-EMAIL_HOST_PASSWORD = "cllsxitzvlfgdbgf"  # new
-EMAIL_USE_TLS = True  # new
