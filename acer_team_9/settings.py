@@ -17,8 +17,8 @@ from decouple import Config, RepositoryEnv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-DOTENV_FILE = os.path.join(BASE_DIR / ".env")
-env_config = Config(RepositoryEnv(DOTENV_FILE))
+# DOTENV_FILE = os.path.join(BASE_DIR / ".env")
+# env_config = Config(RepositoryEnv(DOTENV_FILE))
 
 
 # Quick-start development settings - unsuitable for production
