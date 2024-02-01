@@ -4,3 +4,4 @@ client_secret_545237140133-hof05nbsrvv0aqmmddb84thh6jbe6vmt.apps.googleuserconte
 venv
 .vscode
 .git
+db.sqlite3
