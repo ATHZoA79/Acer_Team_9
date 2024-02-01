@@ -1,35 +1,698 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Website</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
-  <div class="container py-4">
-    <h1>Index Page</h1>
-    {% if user.is_authenticated %}
-    <p>Welcome <strong>{{ user.username }}</strong></p>
-    <a href="/accounts/logout">
-      <button class="px-2 btn btn-secondary">Logout</button>
-    </a>
-    {% else %}
-    <p>Please <a href="/accounts/login">log in</a></p>
-    {% endif %}
-  </div>
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-    crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
-    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
-    crossorigin="anonymous"></script>
+    <section>
+        <nav>
+            <div class="logo">
+                <img src="static/image/logo.png">
+            </div>
+
+            <!--
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Packages</a></li>
+                <li><a href="#">Destination</a></li>
+                <li><a href="#">Review</a></li>
+                <li><a href="#">Blog</a></li>
+            </ul>
+            -->
+
+            <div class="login">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                {% if not user.is_authenticated %}
+                <a href="/accounts/login">會員 登入</a>
+                {% else %}
+                <p><a href="#">{{user.username}}</a><a href="/accounts/logout">登出</a></p>
+                {% endif %}
+            </div>
+        </nav>
+
+        <div class="main">
+            <div class="heading">
+                <h1>旅遊<span><br>好夥伴</span></h1>
+            </div>
+
+            <a href="#">幫您編排行程... (預留按鈕)</a>
+        </div>
+    </section>
+
+
+
+    <!--
+        // About
+
+    <div class="About">
+
+        <div class="left">
+            <img src="static/image/about.png">
+        </div>
+        <div class="right">
+            <h1>About Us</h1>
+            <h3>Explore All Corners of The World With Us</h3>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque, corrupti animi
+                consequatur iste temporibus optio vel unde magni consequuntur? Autem vitae illum
+                asperiores vel dignissimos iure corporis exercitationem nisi id!
+            </p>
+        </div>
+    </div>
+    -->
+
+
+
+
+    <!-- Packages -->
+    <div class="packges">
+        <h1>行程<span>預覽處</span></h1>
+        <div class="packges_box">
+            <div class="packges_card">
+                <div class="packges_image">
+                    <img src="static/image/travelFood.jpg">
+                </div>
+
+                <div class="packges_text">
+                    <div class="p_head">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <h2>餐廳</h2>
+                    </div>
+                    <p>
+                        輸入待編輯文字(預留)
+                    </p>
+                    <p class="price">$價格</p>
+                    <a href="#" class="p_btn">探索</a>
+                </div>
+            </div>
+
+            <div class="packges_card">
+                <div class="packges_image">
+                    <img src="static/image/snackTravel.jpg">
+                </div>
+                <div class="packges_text">
+                    <div class="p_head">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <h2>小吃</h2>
+                    </div>
+                    <p>
+                        輸入待編輯文字(預留)
+                    </p>
+                    <p class="price">$價格</p>
+                    <a href="#" class="p_btn">探索</a>
+                </div>
+            </div>
+
+            <div class="packges_card">
+                <div class="packges_image">
+                    <img src="static/image/beerTravel.jpg">
+                </div>
+
+                <div class="packges_text">
+                    <div class="p_head">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <h2>酒吧</h2>
+                    </div>
+
+                    <p>
+                        輸入待編輯文字(預留)
+                    </p>
+
+                    <p class="price">$價格</p>
+                    <a href="#" class="p_btn">探索</a>
+                </div>
+            </div>
+
+            <div class="packges_card">
+                <div class="packges_image">
+                    <img src="static/image/destinationTravel.jpg">
+                </div>
+
+                <div class="packges_text">
+                    <div class="p_head">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <h2>景點 伴手禮</h2>
+                    </div>
+                    <p>
+                        輸入待編輯文字(預留)
+                    </p>
+                    <p class="price">$價格</p>
+                    <a href="#" class="p_btn">探索</a>
+                </div>
+            </div>
+
+            <div class="packges_card">
+                <div class="packges_image">
+                    <img src="static/image/hotelTravel.jpg">
+                </div>
+                <div class="packges_text">
+                    <div class="p_head">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <h2>旅館</h2>
+                    </div>
+                    <p>
+                        輸入待編輯文字(預留)
+                    </p>
+                    <p class="price">$價格</p>
+                    <a href="#" class="p_btn">探索</a>
+                </div>
+            </div>
+            <div class="packges_card">
+                <div class="packges_image">
+                    <img src="static/image/about.png">
+                </div>
+                <div class="packges_text">
+                    <div class="p_head">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <h2>隨機安排行程</h2>
+                    </div>
+                    <p>
+                        輸入待編輯文字(簡介之類的)
+                    </p>
+                    <p class="price">$價格</p>
+                    <a href="#" class="p_btn">探索</a>
+                </div>
+            </div>
+
+            <!--
+            <div class="packges_card">
+
+                <div class="packges_image">
+                    <img src="static/image/packages7.webp">
+                </div>
+
+                <div class="packges_text">
+
+                    <div class="p_head">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <h2>Packages</h2>
+                    </div>
+
+                    <p>
+                        輸入待編輯文字...
+                    </p>
+
+                    <p class="price">$價格</p>
+                    <a href="#" class="p_btn">Explore</a>
+
+                </div>
+
+            </div>
+
+            <div class="packges_card">
+
+                <div class="packges_image">
+                    <img src="static/image/packages8.jpg">
+                </div>
+
+                <div class="packges_text">
+
+                    <div class="p_head">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <h2>Packages</h2>
+                    </div>
+
+                    <p>
+                        輸入待編輯文字...
+                    </p>
+
+                    <p class="price">$價格</p>
+                    <a href="#" class="p_btn">Explore</a>
+
+                </div>
+
+            </div>
+            -->
+        </div>
+    </div>
+
+    <!--
+        // Destination
+
+    <div class="destination">
+        <h1>Tour<span>Destination</span></h1>
+
+        <div class="d_image">
+            <div class="d_box">
+
+                <div class="like">
+                    <i class="fa-solid fa-heart"></i>
+                </div>
+
+                <img src="static/image/destination1.webp">
+
+            </div>
+
+            <div class="d_box">
+
+                <div class="like">
+                    <i class="fa-solid fa-heart"></i>
+                </div>
+
+                <img src="static/image/destination2.webp">
+
+            </div>
+
+            <div class="d_box">
+
+                <div class="like">
+                    <i class="fa-solid fa-heart"></i>
+                </div>
+
+                <img src="static/image/destination3.jpg">
+
+            </div>
+
+            <div class="d_box">
+
+                <div class="like">
+                    <i class="fa-solid fa-heart"></i>
+                </div>
+
+                <img src="static/image/destination4.jpg">
+
+            </div>
+
+            <div class="d_box">
+
+                <div class="like">
+                    <i class="fa-solid fa-heart"></i>
+                </div>
+
+                <img src="static/image/destination5.jpg">
+
+            </div>
+
+            <div class="d_box">
+
+                <div class="like">
+                    <i class="fa-solid fa-heart"></i>
+                </div>
+
+                <img src="static/image/destination6.jpg">
+
+            </div>
+
+        </div>
+
+    </div>
+    -->
+
+
+
+
+
+    <!--
+        // Hotel & Restaurant
+
+    <div class="hotel">
+        <h1>Hotel<span>&</span>Restaurant</h1>
+
+        <div class="hotel_image">
+
+            <div class="h_img">
+                <img src="static/image/hotle1.webp">
+
+                <div class="tag">
+                    <a href="#">$350.00</a>
+                    <h1>Shangri-la Hotel</h1>
+                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit.</p>
+
+                    <div class="h_icon">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star-half-stroke"></i>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="h_img">
+                <img src="static/image/hotle2.webp">
+
+                <div class="tag">
+                    <a href="#">$350.00</a>
+                    <h1>Shangri-la Hotel</h1>
+                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit.</p>
+
+                    <div class="h_icon">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star-half-stroke"></i>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="h_img">
+                <img src="static/image/hotle3.webp">
+
+                <div class="tag">
+                    <a href="#">$350.00</a>
+                    <h1>Shangri-la Hotel</h1>
+                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit.</p>
+
+                    <div class="h_icon">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star-half-stroke"></i>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    -->
+
+
+
+
+    <!--
+        // Services
+
+    <div class="services">
+
+        <h1>Our<span>services</span></h1>
+
+        <div class="s_box">
+            <div class="s_card">
+                <i class="fa-solid fa-hotel"></i>
+                <h2>Hotel & Restaurant</h2>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid illum non debitis
+                    nisi provident, magni quia vel. Eius minus soluta quo mollitia repudiandae rem modi
+                    dolores culpa, tempore suscipit commodi.
+                </p>
+            </div>
+
+            <div class="s_card">
+                <i class="fa-solid fa-location-dot"></i>
+                <h2>Location Manager</h2>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid illum non debitis
+                    nisi provident, magni quia vel. Eius minus soluta quo mollitia repudiandae rem modi
+                    dolores culpa, tempore suscipit commodi.
+                </p>
+            </div>
+
+            <div class="s_card">
+                <i class="fa-solid fa-utensils"></i>
+                <h2>Food and Drink</h2>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid illum non debitis
+                    nisi provident, magni quia vel. Eius minus soluta quo mollitia repudiandae rem modi
+                    dolores culpa, tempore suscipit commodi.
+                </p>
+            </div>
+
+            <div class="s_card">
+                <i class="fa-solid fa-shield-heart"></i>
+                <h2>Safety Guide</h2>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid illum non debitis
+                    nisi provident, magni quia vel. Eius minus soluta quo mollitia repudiandae rem modi
+                    dolores culpa, tempore suscipit commodi.
+                </p>
+            </div>
+
+            <div class="s_card">
+                <i class="fa-solid fa-plane"></i>
+                <h2>Fastest Travel</h2>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid illum non debitis
+                    nisi provident, magni quia vel. Eius minus soluta quo mollitia repudiandae rem modi
+                    dolores culpa, tempore suscipit commodi.
+                </p>
+            </div>
+
+            <div class="s_card">
+                <i class="fa-solid fa-route"></i>
+                <h2>Travel Arrangements</h2>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid illum non debitis
+                    nisi provident, magni quia vel. Eius minus soluta quo mollitia repudiandae rem modi
+                    dolores culpa, tempore suscipit commodi.
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+    -->
+
+
+
+
+    <!--
+        // Feedback
+
+    <div class="feedback">
+        <h1>Tourist<span>Feedback</span></h1>
+        <div class="f_box">
+            <div class="f_card">
+                <div class="f_icon">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star-half-stroke"></i>
+                </div>
+
+                <p>
+                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+                    Ipsum has been the industry's standard dummy text ever since the 1500s, when an
+                    unknown printer took a galley of type and scrambled it to make a type specimen book.
+                    It has survived not only five centuries, but also the leap into electronic typesetting,
+                    remaining essentially unchanged.
+                </p>
+
+                <div class="f_image">
+                    <img src="static/image/feedback1.png">
+                    <p class="f_name">John Deo</p>
+                </div>
+
+                <div class="f_social">
+                    <i class="fa-brands fa-facebook-f"></i>
+                    <i class="fa-brands fa-twitter"></i>
+                    <i class="fa-brands fa-instagram"></i>
+                    <i class="fa-brands fa-linkedin-in"></i>
+                </div>
+            </div>
+
+            <div class="f_card">
+                <div class="f_icon">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star-half-stroke"></i>
+                </div>
+
+                <p>
+                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+                    Ipsum has been the industry's standard dummy text ever since the 1500s, when an
+                    unknown printer took a galley of type and scrambled it to make a type specimen book.
+                    It has survived not only five centuries, but also the leap into electronic typesetting,
+                    remaining essentially unchanged.
+                </p>
+
+                <div class="f_image">
+                    <img src="static/image/feedback2.png">
+                    <p class="f_name">John Deo</p>
+                </div>
+
+                <div class="f_social">
+                    <i class="fa-brands fa-facebook-f"></i>
+                    <i class="fa-brands fa-twitter"></i>
+                    <i class="fa-brands fa-instagram"></i>
+                    <i class="fa-brands fa-linkedin-in"></i>
+                </div>
+            </div>
+
+            <div class="f_card">
+                <div class="f_icon">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star-half-stroke"></i>
+                </div>
+
+                <p>
+                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+                    Ipsum has been the industry's standard dummy text ever since the 1500s, when an
+                    unknown printer took a galley of type and scrambled it to make a type specimen book.
+                    It has survived not only five centuries, but also the leap into electronic typesetting,
+                    remaining essentially unchanged.
+                </p>
+
+                <div class="f_image">
+                    <img src="static/image/feedback3.png">
+                    <p class="f_name">John Deo</p>
+                </div>
+
+                <div class="f_social">
+                    <i class="fa-brands fa-facebook-f"></i>
+                    <i class="fa-brands fa-twitter"></i>
+                    <i class="fa-brands fa-instagram"></i>
+                    <i class="fa-brands fa-linkedin-in"></i>
+                </div>
+            </div>
+
+            <div class="f_card">
+                <div class="f_icon">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star-half-stroke"></i>
+                </div>
+                <p>
+                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+                    Ipsum has been the industry's standard dummy text ever since the 1500s, when an
+                    unknown printer took a galley of type and scrambled it to make a type specimen book.
+                    It has survived not only five centuries, but also the leap into electronic typesetting,
+                    remaining essentially unchanged.
+                </p>
+                <div class="f_image">
+                    <img src="static/image/feedback4.png">
+                    <p class="f_name">John Deo</p>
+                </div>
+                <div class="f_social">
+                    <i class="fa-brands fa-facebook-f"></i>
+                    <i class="fa-brands fa-twitter"></i>
+                    <i class="fa-brands fa-instagram"></i>
+                    <i class="fa-brands fa-linkedin-in"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    -->
+
+
+
+
+    <!--
+        // Book
+    <div class="book">
+        <h1><span>Book</span>Now</h1>
+        <div class="b_box">
+            <div class="b_search">
+                <p>Full Name</p>
+                <input type="text" placeholder="You Name">
+            </div>
+
+            <div class="b_search">
+                <p>Address</p>
+                <input type="text" placeholder="You Address">
+            </div>
+
+            <div class="b_search">
+                <p>Email</p>
+                <input type="email" placeholder="You Email">
+            </div>
+
+            <div class="b_search">
+                <p>Mobile Number</p>
+                <input type="text" placeholder="You Number">
+            </div>
+
+            <div class="b_search">
+                <p>How Many</p>
+                <input type="number" placeholder="How Many">
+            </div>
+
+            <div class="b_search">
+                <p>You Message</p>
+                <textarea cols="47" rows="9" placeholder="Message"></textarea>
+            </div>
+        </div>
+    </div>
+    -->
+
+
+
+    <!--Subscribe-->
+
+    <div class="subscribe">
+
+        <h1><span>關注</span>我們</h1>
+
+        <div class="s_search_bar">
+            <input type="text" placeholder="輸入您的電子郵件">
+            <button>訂閱</button>
+        </div>
+
+    </div>
+
+
+
+
+    <!-- Footer -->
+
+    <footer>
+        <div class="footer_container">
+
+            <div class="footer_main">
+                <div class="footer_tag">
+                    <h1>Quick Link</h1>
+                    <p class="center">Home</p>
+                    <p class="center">About</p>
+                    <p class="center">Packages</p>
+                    <p class="center">Destination</p>
+                    <p class="center">Review</p>
+                    <p class="center">Blog</p>
+                </div>
+                <div class="footer_tag">
+                    <h1>Experience Link</h1>
+                    <p class="center">Adventure</p>
+                    <p class="center">Hotel and Restaurant</p>
+                    <p class="center">Beach</p>
+                    <p class="center">Nature</p>
+                    <p class="center">Camping</p>
+                    <p class="center">Party</p>
+                </div>
+                <div class="footer_tag">
+                    <h1>Content Info</h1>
+                    <p><i class="fa-solid fa-location-dot"></i>115 Colombo, Sri Lanka</p>
+                    <p><i class="fa-solid fa-phone"></i>+94 12 345 9789</p>
+                    <p><i class="fa-solid fa-phone"></i>+94 22 658 785</p>
+                    <p><i class="fa-solid fa-envelope"></i>travel123@gmail.com</p>
+                </div>
+                <div class="footer_tag">
+                    <h1>Content Info</h1>
+                    <p><i class="fa-brands fa-facebook-f"></i>Facebook</p>
+                    <p><i class="fa-brands fa-twitter"></i>Twitter</p>
+                    <p><i class="fa-brands fa-instagram"></i>Instagram</p>
+                    <p><i class="fa-brands fa-linkedin-in"></i>Linkedin</p>
+                    <p><i class="fa-brands fa-google"></i>Google</p>
+                </div>
+            </div>
+            <p class="end">Produce By 2024 宏碁班 第九組<span><i class="fa-solid fa-face-grin"></i></span></p>
+        </div>
+    </footer>
 </body>
 
 </html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plan</title>
+</head>
+
+<body>
+  <h1>{{user.username}}'s Plan</h1>
+  <h2>User id = {{user.id}}</h2>
+  <div>
+    <ul>
+      {% for plan in plans %}
+      <li>{{plan}}</li>
+      {% endfor %}
+    </ul>
+  </div>
+  <form method="post" action="{% url 'plans' %}" id="planForm">
+    {% csrf_token %}
+    <label for="title">Title:</label>
+    <input type="text" name="title" id="title">
+
+    <div id="plansContainer">
+      {% for plan in plans %}
+      <div class="plan-row" data-plan-id="{{plan.id}}">
+        <label for="plan">Plan:</label>
+        <input type="text" name="plan" class="plan-input" value="{{ plan.plan }}" readonly>
+        <button type="button" class="deletePlan">Delete</button>
+      </div>
+      {% endfor %}
+    </div>
+
+    <button type="button" id="addPlan">Add Plan</button>
+
+    <input type="submit" value="Submit">
+  </form>
+
+  <script>
+    document.getElementById('addPlan').addEventListener('click', function () {
+      var container = document.getElementById('plansContainer');
+      var planRow = document.createElement('div');
+      planRow.className = 'plan-row';
+      var newPlanLabel = document.createElement('label');
+      newPlanLabel.innerHTML = "Plan:"
+      planRow.append(newPlanLabel)
+      var newPlanInput = document.createElement('input');
+      newPlanInput.type = 'text';
+      newPlanInput.name = 'plan';
+      newPlanInput.className = 'plan-input';
+      planRow.appendChild(newPlanInput);
+      var deleteButton = document.createElement('button');
+      deleteButton.type = 'button';
+      deleteButton.className = 'deletePlan';
+      deleteButton.innerText = 'Delete';
+      planRow.appendChild(deleteButton);
+      container.append(planRow)
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+      var container = document.getElementById('plansContainer');
+
+      // 添加刪除按鈕的點擊事件處理程序
+      container.addEventListener('click', function (event) {
+        if (event.target.classList.contains('deletePlan')) {
+          var planRow = event.target.closest('.plan-row');
+
+          // 取得對應的 plan_id，這裡使用 data 屬性來存儲
+          var planId = planRow.dataset.planId;
+
+          // 發送 AJAX 請求
+          fetch(`/user/delete_plan/${planId}/`, {
+            method: 'POST',
+            headers: {
+              'X-CSRFToken': getCookie('csrftoken'),  // 在使用 Django CSRF 保護時需要傳遞 CSRF token
+              'Content-Type': 'application/json'
+            },
+          })
+            .then(response => {
+              if (response.ok) {
+                container.removeChild(planRow);
+              } else {
+                console.error('Failed to delete plan.');
+              }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+      });
+    });
+
+    function getCookie(name) {
+      var cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+          var cookie = cookies[i].trim();
+          if (cookie.substring(0, name.length + 1) === (name + '=')) {
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            break;
+          }
+        }
+      }
+      return cookieValue;
+    }
+  </script>
+</body>
+
+</html>
