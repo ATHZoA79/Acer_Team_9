@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpRequest
 from .models import ScheduleModel, PlanModel
+from django.views.decorators.csrf import csrf_exempt
 
 
 # Create your views here.
@@ -24,7 +25,23 @@ def generate_schedule(request):
     pass
 
 
-def get_plans(request):
+@csrf_exempt
+def add_plan(request: HttpRequest):
+    """將單一個地點加入關注清單"""
+    if request.method == "POST":
+        try:
+            user_id = request.user.id
+            plan = request.POST.get("plan")
+            plan_to_add = PlanModel()
+            plan_to_add.username_id = user_id
+            plan_to_add.plan = plan
+            plan_to_add.save()
+            return HttpResponse(f"{plan} is added to plan list.")
+        except:
+            return HttpResponse("Error on adding plan")
+
+
+def get_plans(request: HttpRequest):
     """取得所有關注行程並傳送到前端頁面"""
     user = request.user
     plans = PlanModel.objects.filter(username=user.id).all()
@@ -35,15 +52,13 @@ def get_plans(request):
         plans = request.POST.getlist("plan")
         content = {"title": title, "plans": plans}
 
-        # 進行進一步的處理，例如儲存到資料庫等操作
-        # ...
-
         return render(request, "main/test.html", content)
     content = {"plans": plans}
     return render(request, "main/plan.html", context=content)
 
 
-def delete_plan(request, plan_id):
+@csrf_exempt
+def delete_plan(request: HttpRequest, plan_id):
     """在確認儲存成行程表之前，刪除單一個關注行程"""
     if request.method == "POST":
         try:
@@ -56,6 +71,25 @@ def delete_plan(request, plan_id):
     return HttpResponse("Invalid request.")
 
 
-def delete_plans(request):
-    """儲存行程表之後刪除關注清單"""
-    pass
+@csrf_exempt
+def test_delete_plans(request: HttpRequest):
+    """儲存行程表之後刪除關注清單<<API測試用>>"""
+    if request.method == "POST":
+        try:
+            user = request.user
+            plans = PlanModel.objects.filter(username=user.id).all()
+            plans.delete()
+            return HttpResponse("All plans deleted successfully.")
+        except:
+            return HttpResponse("Error on delete plans.")
+
+
+def delete_plans(request: HttpRequest):
+    """儲存行程表之後刪除關注清單<<內部程式呼叫用>>"""
+    try:
+        user = request.user
+        plans = PlanModel.objects.filter(username=user.id).all()
+        plans.delete()
+        return True
+    except:
+        return False
