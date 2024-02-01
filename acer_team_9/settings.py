@@ -32,13 +32,13 @@ DEBUG = config("DEBUG", default=False, cast=bool)
 SECRET_KEY = config("SECRET_KEY")
 if not DEBUG:  # Tell Django to copy statics to the `staticfiles` directory
     # in your application directory on Render.
-    STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+    STATIC_ROOT = os.path.join(BASE_DIR, "static")
     # Turn on WhiteNoise storage backend that takes care of compressing static files
     # and creating unique names for each version so they can safely be cached forever.
     STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["https://acer-team-9.onrender.com/"]
 
 AUTHENTICATION_BACKENDS = [
     # Needed to login by username in Django admin, regardless of `allauth`
