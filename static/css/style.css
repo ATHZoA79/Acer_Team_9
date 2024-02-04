@@ -13,7 +13,7 @@
 section {
     width: 100%;
     height: 100vh;
-    background-image: url("{% static 'image/bg.png' %}");
+    background-image: url("../image/bg.png");
     background-size: cover;
     background-position: center;
 }
@@ -181,7 +181,7 @@ section .main a {
 }
 
 .packges .packges_box .packges_card {
-    background: url("{% static 'image/card_bg.png' %}");
+    background: url("../image/card_bg.png");
     background-size: cover;
     background-position: center;
     width: 350px;
@@ -488,7 +488,7 @@ section .main a {
     width: 100%;
     height: 100vh;
     padding: 40px 0;
-    background-image: url("{% static 'image/feedback_bg.webp' %}");
+    background-image: url("../image/feedback_bg.webp");
     background-size: cover;
     background-position: center;
 }
@@ -599,7 +599,7 @@ section .main a {
     width: 100%;
     height: 100vh;
     padding: 40px 0;
-    background-image: url("{% static 'image/book_bg.webp' %}");
+    background-image: url("static 'image/book_bg.webp");
     background-size: cover;
     background-position: center;
 }
@@ -721,7 +721,7 @@ section .main a {
 
 footer {
     width: 100%;
-    background-image: url("{% static 'image/footer_bg.jpg' %}");
+    background-image: url("../image/footer_bg.jpg");
     background-size: cover;
     background-position: center;
 }
