@@ -17,7 +17,7 @@ import django_heroku
 
 django_heroku.settings(locals())
 
-
+PROJECT_DIR = os.environ.get("PROJECT_DIR", "acerteam9")
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
