@@ -27,7 +27,8 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config("DEBUG", default=False, cast=bool)
+# DEBUG = config("DEBUG", default=False, cast=bool)
+DEBUG = True
 SECRET_KEY = "django-insecure-4tejy1l*we6ni76v7$-!+mymqql_d*t5)q7t&ouz2d9-gsbbpm"
 # SECRET_KEY = config("SECRET_KEY")
 # if not DEBUG:  # Tell Django to copy statics to the `staticfiles` directory
