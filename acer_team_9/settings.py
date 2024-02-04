@@ -20,8 +20,6 @@ django_heroku.settings(locals())
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-# DOTENV_FILE = os.path.join(BASE_DIR / ".env")
-# env_config = Config(RepositoryEnv(DOTENV_FILE))
 
 
 # Quick-start development settings - unsuitable for production
@@ -32,13 +30,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config("DEBUG", default=False, cast=bool)
-SECRET_KEY = config("SECRET_KEY")
-if not DEBUG:  # Tell Django to copy statics to the `staticfiles` directory
-    # in your application directory on Render.
-    STATIC_ROOT = os.path.join(BASE_DIR, "static")
-    # Turn on WhiteNoise storage backend that takes care of compressing static files
-    # and creating unique names for each version so they can safely be cached forever.
-    STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+SECRET_KEY = "django-insecure-4tejy1l*we6ni76v7$-!+mymqql_d*t5)q7t&ouz2d9-gsbbpm"
+# SECRET_KEY = config("SECRET_KEY")
+# if not DEBUG:  # Tell Django to copy statics to the `staticfiles` directory
+#     # in your application directory on Render.
+#     STATIC_ROOT = os.path.join(BASE_DIR, "static")
+#     # Turn on WhiteNoise storage backend that takes care of compressing static files
+#     # and creating unique names for each version so they can safely be cached forever.
+#     STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 
 ALLOWED_HOSTS = ["https://acer-team-9.onrender.com/"]
