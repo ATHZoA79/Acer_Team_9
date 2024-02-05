@@ -2,6 +2,8 @@ from django.shortcuts import render
 from .models import ScheduleModel, PlanModel
 import time
 import openai
+import random
+import string
 
 
 # Create your views here.
@@ -85,6 +87,10 @@ def time_to_uuid(date = "20240204210931"):# uuid = ****** uuid",(行程表編號
     #print(uuid_number)
     uuid = str(uuid_number).zfill(6)#如果不足6碼,前面補0
     
+    letters = string.ascii_lowercase
+    random_letters = random.choices(letters,k=5)
+    random_str = ''.join(random_letters)#再加5個隨機字母,避免重覆
+    uuid = random_str + uuid
     return uuid
 
 def generate_schedule(request):
