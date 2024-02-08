@@ -60,7 +60,7 @@ ACCOUNT_EMAIL_VERIFICATION = "none"
 ACCOUNT_ADAPTER = "allauth.account.adapter.DefaultAccountAdapter"
 
 # Application definition
-SITE_ID = 3
+SITE_ID = 4
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -195,7 +195,7 @@ SOCIALACCOUNT_PROVIDERS = {
     },
 }
 # LOGIN_URL = "/accounts/login/"
-LOGIN_REDIRECT_URL = "/"
+LOGIN_REDIRECT_URL = "/scenic"
 LOGOUT_REDIRECT_URL = "/"
 
 django_heroku.settings(locals())

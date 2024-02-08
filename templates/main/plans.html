@@ -1,0 +1,117 @@
+<!-- 選擇行程加入行程表 -->
+
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>行程規畫表</title>
+  <!-- Link to Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- Link to Sortable.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
+  <!-- Link to custom CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+
+<body>
+  <div class="container mt-4">
+    <h2 class="mb-4 text-center text-4xl text-orange-500 font-bold">行程規畫表</h2>
+    <form method="post" action="{% url 'plans' %}" id="planForm">
+      {% csrf_token %}
+      <table class="table">
+        <thead>
+          <tr>
+            <th rowspan="2" scope="col">景點</th>
+            <th rowspan="2" scope="col">操作</th>
+          </tr>
+          <tr></tr> <!-- 空的第二行，用來保持表格結構 -->
+        </thead>
+        <tbody id="plansContainer">
+          {% for plan in plans %}
+          <tr class="plan-row" data-plan-id="{{plan.id}}">
+            <td><input type="text" name="plan" class="plan-input focus:outline-none" value="{{ plan.plan }}" readonly>
+            </td>
+            <td><button class="deletePlan btn btn-danger">刪除</button></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <button id="saveToDBButton" class="btn btn-primary float-right">儲存到行程表</button>
+    </form>
+
+  </div>
+
+  <!-- Link to Bootstrap JS and Popper.js -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <!-- Link to jQuery and jQuery UI -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+  <!-- Link to custom JavaScript -->
+
+</body>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var container = document.getElementById('plansContainer');
+
+    // 添加刪除按鈕的點擊事件處理程序
+    container.addEventListener('click', function (event) {
+      if (event.target.classList.contains('deletePlan')) {
+        var planRow = event.target.closest('.plan-row');
+
+        // 取得對應的 plan_id，這裡使用 data 屬性來存儲
+        var planId = planRow.dataset.planId;
+
+        // 發送 AJAX 請求
+        fetch(`/user/delete_plan/${planId}/`, {
+          method: 'POST',
+          headers: {
+            'X-CSRFToken': getCookie('csrftoken'),  // 在使用 Django CSRF 保護時需要傳遞 CSRF token
+            'Content-Type': 'application/json'
+          },
+        })
+          .then(response => {
+            if (response.ok) {
+              container.removeChild(planRow);
+            } else {
+              console.error('Failed to delete plan.');
+            }
+          })
+          .catch(error => console.error('Error:', error));
+      }
+    });
+
+    var tableBody = document.querySelector('tbody');
+
+    // 初始化Sortable
+    var sortable = new Sortable(tableBody, {
+      animation: 150,
+      handle: 'th, td', // 设置哪个部分可以拖动
+      onEnd: function (evt) {
+      },
+    });
+  });
+
+  function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+      var cookies = document.cookie.split(';');
+      for (var i = 0; i < cookies.length; i++) {
+        var cookie = cookies[i].trim();
+        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
+</script>
+
+</html>

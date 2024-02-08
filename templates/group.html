@@ -1,0 +1,93 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{% static 'css/scenic/style.css' %}">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Group Search</title>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-white">
+    <a class="navbar-brand" href="{% url 'index' %}"><img src="{% static 'image/scenic/logo.png'%}" alt="logo"
+        class="logo"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        {% if user.is_authenticated %}
+        <li class="nav-item active">
+          <a class="nav-link" href="#">{{user.username}}</a>
+        </li>
+        {% else %}
+        <li class="nav-item active">
+          <a class="nav-link" href="{% url 'login' %}">登入/註冊 </a>
+        </li>
+        {% endif %}
+        <li class="nav-item">
+          <a class="nav-link" href="#">關於我們</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'index' %}">回首頁</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <p>{{group}}</p>
+  <span>{{page}}</span>
+  <span>{{per_page}}</span>
+  <span>{{page_limit}}</span>
+  <div>
+    {% for data in datas %}
+    <div class="scenic-wrapper"></div>
+    <h1>{{data.title}}</h1>
+    <span>{{data.address}}</span>
+    {% endfor %}
+  </div>
+
+  <nav aria-label="Page navigation example">
+    <ul class="pagination" id="paginationWrapper">
+      {% if not page == 1 %}
+      <li class="page-item" id="prevPage">
+        <a class="page-link cursor-pointer" aria-label="Previous">
+          <span aria-hidden="true">&laquo;上一頁</span>
+        </a>
+      </li>
+      {% else %}
+      <li class="page-item disabled">
+        <a class="page-link cursor-pointer" aria-label="Previous">
+          <span aria-hidden="true">&laquo;上一頁</span>
+        </a>
+      </li>
+      {% endif %}
+      {% if not page == page_limit %}
+      <li class="page-item">
+        <a class="page-link cursor-pointer" aria-label="Next">
+          <span aria-hidden="true">下一頁&raquo;</span>
+        </a>
+      </li>
+      {% else %}
+      <li class="page-item disabled" id="nextPage">
+        <a class="page-link cursor-pointer" aria-label="Previous">
+          <span aria-hidden="true">下一頁&raquo;</span>
+        </a>
+      </li>
+      {% endif %}
+    </ul>
+  </nav>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+<script>
+</script>
+
+</html>

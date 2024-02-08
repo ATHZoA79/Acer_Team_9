@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.conf import settings
 from django.db import connection
 import pandas as pd
+import numpy as np
 from sqlalchemy import create_engine
 import os
 from .models import (
@@ -24,6 +25,7 @@ def init_food(request):
     conn = create_engine(f"sqlite:///{db_dir}")
 
     csv_file = pd.read_csv(path)
+    csv_file["id"] = np.arange(csv_file.shape[0])
     result = csv_file.to_sql("food", con=conn, if_exists="replace", index=False)
 
     content = {
@@ -41,6 +43,7 @@ def init_drink(request):
     conn = create_engine(f"sqlite:///{db_dir}")
 
     csv_file = pd.read_csv(path)
+    csv_file["id"] = np.arange(csv_file.shape[0])
     result = csv_file.to_sql("drink", con=conn, if_exists="replace", index=False)
 
     content = {
@@ -58,6 +61,7 @@ def init_bar(request):
     conn = create_engine(f"sqlite:///{db_dir}")
 
     csv_file = pd.read_csv(path)
+    csv_file["id"] = np.arange(csv_file.shape[0])
     result = csv_file.to_sql("bar", con=conn, if_exists="replace", index=False)
 
     content = {
@@ -75,6 +79,7 @@ def init_sight(request):
     conn = create_engine(f"sqlite:///{db_dir}")
 
     csv_file = pd.read_csv(path)
+    csv_file["id"] = np.arange(csv_file.shape[0])
     result = csv_file.to_sql("sight", con=conn, if_exists="replace", index=False)
 
     content = {
@@ -92,6 +97,7 @@ def init_hotel(request):
     conn = create_engine(f"sqlite:///{db_dir}")
 
     csv_file = pd.read_csv(path)
+    csv_file["id"] = np.arange(csv_file.shape[0])
     result = csv_file.to_sql("hotel", con=conn, if_exists="replace", index=False)
 
     content = {
@@ -109,6 +115,7 @@ def init_restaurant(request):
     conn = create_engine(f"sqlite:///{db_dir}")
 
     csv_file = pd.read_csv(path)
+    csv_file["id"] = np.arange(csv_file.shape[0])
     result = csv_file.to_sql("restaurant", con=conn, if_exists="replace", index=False)
 
     content = {

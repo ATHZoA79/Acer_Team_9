@@ -1,14 +1,135 @@
+<!-- 選擇哪一個行程表 -->
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-TW">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Schedule</title>
+  <title>行程總覽</title>
+  <!-- Link to Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- Link to Sortable.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
+  <!-- Link to custom CSS -->
+  <!-- <link rel="stylesheet" href="{% static 'css/schedule/style.css' %}"> -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
 </head>
 
 <body>
+  <header>
+    <nav>
+      <ul>
+        <li><a href="{% url 'index' %}">回首頁</a></li>
+      </ul>
+      <ul>
+        <li><a href="{% url 'plans' %}">查看關注清單</a></li>
+      </ul>
+    </nav>
+  </header>
+  <div class="container mt-4">
+    <h2 class="mb-4 text-center text-4xl text-orange-500 font-bold">行程總覽</h2>
+    <div class="container" id="schedulesContainer">
+      {% for schedule in schedules %}
+      <div class="schedule-wrapper mb-2" data-id="{{schedule.uuid}}">
+        <div class="w-[100%] grid grid-cols-4 gap-2">
+          <div class="editable-text flex items-center col-span-3 text-2xl font-bold">
+            <img src="{% static 'image/schedule.png' %}" alt="行程圖示" class="schedual-icon" />
+            <div class="ps-4">
+              {{schedule.schedule_name}}
+            </div>
+          </div>
+          <button type="button"
+            class="deleteSchedule py-2 text-center text-white bg-red-500 hover:bg-red-600 rounded-lg">刪除</button>
+        </div>
+        <hr class="border-nuetral-400 my-2">
+        <div class="flex items-center px-4 text-neutral-400">
+          <div class="w-4 h-4">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="#A3A3A3">
+              <path
+                d="M464 256A208 208 0 1 1 48 256a208 208 0 1 1 416 0zM0 256a256 256 0 1 0 512 0A256 256 0 1 0 0 256zM232 120V256c0 8 4 15.5 10.7 20l96 64c11 7.4 25.9 4.4 33.3-6.7s4.4-25.9-6.7-33.3L280 243.2V120c0-13.3-10.7-24-24-24s-24 10.7-24 24z" />
+            </svg>
+          </div>
+          <div class="ps-4">
+            建立時間：{{schedule.created_time}}
+          </div>
+        </div>
+        <div class="px-4 text-lg font-bold">
+          <div>
+            <ul>
+              {% for scenic in schedule.schedule_info %}
+              <li>{{scenic.location}} : {{scenic.time}}</li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+        <hr class="mt-2 border-2 border-neutral-400">
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Link to Bootstrap JS and Popper.js -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <!-- Link to jQuery and jQuery UI -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+  <!-- Link to custom JavaScript -->
 
 </body>
+<script>
+
+  document.addEventListener('DOMContentLoaded', function () {
+    var container = document.getElementById('schedulesContainer');
+
+    // 添加刪除按鈕的點擊事件處理程序
+    container.addEventListener('click', function (event) {
+      if (event.target.classList.contains('deleteSchedule')) {
+        var scheduleWrapper = event.target.closest('.schedule-wrapper');
+
+        // 取得對應的 schedule_uuid，這裡使用 data 屬性來存儲
+        var schedule_uuid = scheduleWrapper.dataset.id;
+        console.log(schedule_uuid)
+
+        // 發送 AJAX 請求
+        fetch(`/user/delete_schedule/${schedule_uuid}/`, {
+          method: 'POST',
+          headers: {
+            'X-CSRFToken': getCookie('csrftoken'),
+            'Content-Type': 'application/json'
+          },
+        })
+          .then(response => {
+            if (response.ok) {
+              container.removeChild(scheduleWrapper);
+            } else {
+              console.error('Failed to delete schedule.');
+            }
+          })
+          .catch(error => console.error('Error:', error));
+      }
+    });
+  });
+
+  function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+      var cookies = document.cookie.split(';');
+      for (var i = 0; i < cookies.length; i++) {
+        var cookie = cookies[i].trim();
+        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
+</script>
 
 </html>
