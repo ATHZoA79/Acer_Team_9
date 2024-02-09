@@ -60,7 +60,7 @@ ACCOUNT_EMAIL_VERIFICATION = "none"
 ACCOUNT_ADAPTER = "allauth.account.adapter.DefaultAccountAdapter"
 
 # Application definition
-SITE_ID = 4
+SITE_ID = 5
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -192,7 +192,6 @@ SOCIALACCOUNT_PROVIDERS = {
     "line": {
         "SCOPE": ["profile", "openid", "email"],
         "AUTH_PARAMS": {"access_type": "online"},
-        "redirect_url": "http://127.0.0.1:8000/line/login/callback/",
         "sites": [4],
     },
 }
