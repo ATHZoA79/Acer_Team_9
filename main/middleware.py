@@ -15,7 +15,7 @@ class LoginRequiredMiddleware:
     def __call__(self, request: HttpRequest):
         logger.debug(f"Request path: {request.path}")
         if not request.user.is_authenticated:
-            return HttpResponseRedirect("account_login")
+            return redirect("account_login")
         else:
             response = self.get_response(request)
             return response

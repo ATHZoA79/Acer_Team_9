@@ -22,9 +22,9 @@ def scenic(request: HttpRequest):
 
 def search(request: HttpRequest):
     page = request.GET.get("page", 1)
-    page = eval(page)
+    page = int(page)
     per_page = request.GET.get("per_page", 10)
-    per_page = eval(per_page)
+    per_page = int(per_page)
     region = request.GET.get("region", "")
     genre = request.GET.get("genre", "food")
     offset = (page - 1) * per_page

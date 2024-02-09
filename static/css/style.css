@@ -94,13 +94,21 @@ section .main .heading h1 span {
 }
 
 section .main a {
-    color: white;
+    /* color: white; */
+    color: var(--color-primary);
+    font-weight: 700;
+    font-size: 20px;
     position: relative;
     top: 360px;
     left: 10%;
     padding: 10px 20px;
-    background: var(--color-primary);
     text-decoration: none;
+    transition: color 0.8s, padding-left 0.5s;
+}
+
+section .main a:hover {
+    padding-left: 30px;
+    color: #f97316;
 }
 
 

@@ -63,6 +63,7 @@ def travel_itinerary_to_str(scenic=""):  # (行程內容) schedule_info
     """將提詞(prompt)傳送到OpenAPI取得回覆"""
     # openai.api_key = "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"
     api_key = "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"
+    # api_key = "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"
 
     scenic = (
         """請幫我安排一個包含"""

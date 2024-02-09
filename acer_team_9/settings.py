@@ -118,6 +118,7 @@ WSGI_APPLICATION = "acer_team_9.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
+DB_DIR = os.path.join(BASE_DIR, "db.sqlite3")
 if os.environ.get("DEBUG"):
     DATABASES = {
         "default": {
@@ -125,7 +126,7 @@ if os.environ.get("DEBUG"):
             "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
         }
     }
-    DB_DIR = os.path.join(BASE_DIR, "db.sqlite3")
+    # DB_DIR = os.path.join(BASE_DIR, "db.sqlite3")
 else:
     DATABASES = {
         "default": dj_database_url.config(default=os.environ.get("DATABASE_URL"))
@@ -176,6 +177,7 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
 
 # Provider specific settings
 SOCIALACCOUNT_PROVIDERS = {

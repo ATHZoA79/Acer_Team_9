@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>行程規畫表</title>
   <!-- Link to Bootstrap CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> -->
   <!-- Link to Sortable.js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
   <!-- Link to custom CSS -->
@@ -17,41 +17,60 @@
 </head>
 
 <body>
-  <div class="container mt-4">
+  <header class="mx-auto px-32">
+    <nav class="container py-4">
+      <ul class="flex gap-x-4">
+        <li><a class="text-decoration-none text-orange-500 hover:text-orange-700" href="{% url 'index' %}">回首頁</a></li>
+        <li><a class="text-decoration-none text-orange-500 hover:text-orange-700" href="{% url 'schedules' %}">我的行程表</a>
+        </li>
+        <li><a class="text-decoration-none text-orange-500 hover:text-orange-700" href="{% url 'scenic' %}">探索行程</a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+  <div class="w-full mt-4">
     <h2 class="mb-4 text-center text-4xl text-orange-500 font-bold">行程規畫表</h2>
-    <form method="post" action="{% url 'plans' %}" id="planForm">
+    <form class="w-[80%] mx-auto" method="post" action="{% url 'plans' %}" id="planForm">
       {% csrf_token %}
-      <table class="table">
-        <thead>
-          <tr>
-            <th rowspan="2" scope="col">景點</th>
-            <th rowspan="2" scope="col">操作</th>
-          </tr>
-          <tr></tr> <!-- 空的第二行，用來保持表格結構 -->
-        </thead>
-        <tbody id="plansContainer">
+      <label for="" class="text-[20px] font-semibold">
+        行程名稱：
+        <input type="text" class="border-b-2 border-b-neutral-500 outline-0" required>
+      </label>
+      <div class="table w-full mt-4">
+        <div class="grid grid-cols-3 border-b border-b-neutral-400 text-lg font-bold">
+          <div class="col-span-2 text-center">行程目的地</div>
+          <div class="text-center">操作</div>
+        </div>
+        <div id="plansContainer" class="">
           {% for plan in plans %}
-          <tr class="plan-row" data-plan-id="{{plan.id}}">
-            <td><input type="text" name="plan" class="plan-input focus:outline-none" value="{{ plan.plan }}" readonly>
-            </td>
-            <td><button class="deletePlan btn btn-danger">刪除</button></td>
-          </tr>
+          <div class="plan-row border-b grid grid-cols-3 py-2" data-plan-id="{{plan.id}}">
+            <input type="text" name="plan" class="col-span-2 plan-input font-bold text-[20px] focus:outline-none"
+              value="{{ plan.plan }}" readonly>
+            <button
+              class="deletePlan w-20 h-8 mx-auto flex justify-center items-center bg-red-500 text-white rounded-lg hover:bg-red-700">
+              刪除
+            </button>
+          </div>
           {% endfor %}
-        </tbody>
-      </table>
-      <button id="saveToDBButton" class="btn btn-primary float-right">儲存到行程表</button>
+        </div>
+      </div>
+      <div class="w-full pt-4 flex flex-row-reverse border-t border-t-neutral-400">
+        <button id="saveToDBButton" class="py-2 px-4 bg-blue-600 text-center text-white rounded-lg hover:bg-blue-700">
+          儲存到行程表
+        </button>
+      </div>
     </form>
 
   </div>
 
   <!-- Link to Bootstrap JS and Popper.js -->
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
 
   <!-- Link to jQuery and jQuery UI -->
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
 
   <!-- Link to custom JavaScript -->
 

@@ -22,12 +22,12 @@
     </noscript>
 
     <div class="container mx-auto">
-        <div class="navbar">
+        <div class="navbar py-4 border-b border-b-orange-300">
             <div class="inline text-orange-500 font-extrabold hover:scale-105 transition-all">
                 <a href="{% url 'index' %}" title="回首頁" class="">&lt; 回首頁</a>
             </div>
         </div>
-        <form method="post" id="form1" autocomplete="on">
+        <form method="post" id="form1" autocomplete="on" class="pt-8">
             {% csrf_token %}
             <div class="main">
                 <div class="">
@@ -47,9 +47,9 @@
                                     </dt>
                                     <dd>
                                         <div class="member-input">
-                                            <input class="px-2 focus:outline-orange-500" name="login" type="text"
-                                                maxlength="20" id="txtaaa" placeholder="請輸入使用者名稱" autocomplete="off"
-                                                required />
+                                            <input class="px-2 border-b-2 border-b-nuetral-500 focus:outline-orange-500"
+                                                name="login" type="text" maxlength="20" id="txtaaa"
+                                                placeholder="請輸入使用者名稱" autocomplete="off" required />
                                         </div>
                                     </dd>
                                 </dl>
@@ -59,9 +59,9 @@
                                     </dt>
                                     <dd>
                                         <div class="member-input">
-                                            <input class="px-2 focus:outline-orange-500" name="password" maxlength="20"
-                                                id="txtppp" type="password" placeholder="請輸入密碼" autocomplete="off"
-                                                required />
+                                            <input class="px-2 border-b-2 border-b-nuetral-500 focus:outline-orange-500"
+                                                name="password" maxlength="20" id="txtppp" type="password"
+                                                placeholder="請輸入密碼" autocomplete="off" required />
                                         </div>
                                     </dd>
                                 </dl>
@@ -70,7 +70,7 @@
                                 <button class="w-full p-2 text-white bg-orange-500 rounded-md hover:bg-orange-600"
                                     type="submit">登入</button>
                             </dl>
-                            <hr class="my-2 h-2 border-slate-400">
+                            <hr class="my-2 h-2 border-orange-400">
                             <div class="social-login flex flex-col gap-2">
                                 <a href="{% provider_login_url 'google' %}"
                                     class="p-2 flex justify-center items-center bg-red-600 text-white font-bold rounded-md hover:bg-red-700"
@@ -99,7 +99,10 @@
                                     </div>
                                 </a>
                             </div>
-                            <p class="mt-5 mb-3 text-muted">&copy;2024</p>
+                            <div>
+                                <a href="{% url 'account_signup'%}">註冊</a>
+                            </div>
+                            <p class="w-full mt-5 mb-3 text-center">&copy;2024</p>
                         </div>
                     </div>
                 </div>

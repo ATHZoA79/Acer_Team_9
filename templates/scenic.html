@@ -25,14 +25,14 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="#">{{user.username}}</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'schedules' %}">我的行程表</a>
+                </li>
                 {% else %}
                 <li class="nav-item active">
                     <a class="nav-link" href="{% url 'account_login' %}">登入/註冊 </a>
                 </li>
                 {% endif %}
-                <li class="nav-item">
-                    <a class="nav-link" href="#">關於我們</a>
-                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'index' %}">回首頁</a>
                 </li>

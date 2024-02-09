@@ -3,6 +3,6 @@ from . import views
 
 urlpatterns = [
     path("", views.index, name="index"),
-    path("scenic/", views.scenic),
+    path("scenic/", views.scenic, name="scenic"),
     re_path(r"^search/$", views.search),
 ]
