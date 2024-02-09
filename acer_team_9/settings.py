@@ -44,7 +44,7 @@ elif os.environ.get("ENVIRONMENT") == "production":
     DATABASES = {
         "default": dj_database_url.config(default=os.environ.get("DATABASE_URL"))
     }
-
+DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
