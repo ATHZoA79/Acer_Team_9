@@ -19,6 +19,10 @@ static_root = settings.STATIC_URL
 db_dir = settings.DB_DIR
 
 
+def init_view(request):
+    return render(request, "init/index.html")
+
+
 def init_food(request):
     path = os.path.join(settings.BASE_DIR, "static", "food.csv")
 
@@ -34,7 +38,7 @@ def init_food(request):
         "length": len(csv_file),
         "result": result,
     }
-    return render(request, "init/index.html", context=content)
+    return render(request, "init/result.html", context=content)
 
 
 def init_drink(request):
@@ -52,7 +56,7 @@ def init_drink(request):
         "length": len(csv_file),
         "result": result,
     }
-    return render(request, "init/index.html", context=content)
+    return render(request, "init/result.html", context=content)
 
 
 def init_bar(request):
@@ -70,7 +74,7 @@ def init_bar(request):
         "length": len(csv_file),
         "result": result,
     }
-    return render(request, "init/index.html", context=content)
+    return render(request, "init/result.html", context=content)
 
 
 def init_sight(request):
@@ -88,7 +92,7 @@ def init_sight(request):
         "length": len(csv_file),
         "result": result,
     }
-    return render(request, "init/index.html", context=content)
+    return render(request, "init/result.html", context=content)
 
 
 def init_hotel(request):
@@ -106,7 +110,7 @@ def init_hotel(request):
         "length": len(csv_file),
         "result": result,
     }
-    return render(request, "init/index.html", context=content)
+    return render(request, "init/result.html", context=content)
 
 
 def init_restaurant(request):
@@ -124,4 +128,4 @@ def init_restaurant(request):
         "length": len(csv_file),
         "result": result,
     }
-    return render(request, "init/index.html", context=content)
+    return render(request, "init/result.html", context=content)
