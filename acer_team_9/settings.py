@@ -30,20 +30,20 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 SECRET_KEY = "django-insecure-4tejy1l*we6ni76v7$-!+mymqql_d*t5)q7t&ouz2d9-gsbbpm"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-if os.environ.get("ENVIRONMENT") == "development":
-    DEBUG = True
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.sqlite3",
-            "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
-        }
-    }
-    SECRE_KEY = os.environ.get("SECRET_KEY")
-elif os.environ.get("ENVIRONMENT") == "production":
-    DEBUG = False
-    DATABASES = {
-        "default": dj_database_url.config(default=os.environ.get("DATABASE_URL"))
-    }
+# if os.environ.get("ENVIRONMENT") == "development":
+#     DEBUG = True
+#     DATABASES = {
+#         "default": {
+#             "ENGINE": "django.db.backends.sqlite3",
+#             "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+#         }
+#     }
+#     SECRE_KEY = os.environ.get("SECRET_KEY")
+# elif os.environ.get("ENVIRONMENT") == "production":
+#     DEBUG = False
+#     DATABASES = {
+#         "default": dj_database_url.config(default=os.environ.get("DATABASE_URL"))
+#     }
 DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
@@ -60,7 +60,8 @@ ACCOUNT_EMAIL_VERIFICATION = "none"
 ACCOUNT_ADAPTER = "allauth.account.adapter.DefaultAccountAdapter"
 
 # Application definition
-SITE_ID = 5
+# SITE_ID = 5
+SITE_ID = 4
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -120,19 +121,19 @@ WSGI_APPLICATION = "acer_team_9.wsgi.application"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 # DB_DIR = os.path.join(BASE_DIR, "db.sqlite3")
 DB_DIR = os.path.join(BASE_DIR, "db.sqlite3")
-if os.environ.get("DEBUG"):
-    # DATABASES = {
-    #     "default": {
-    #         "ENGINE": "django.db.backends.sqlite3",
-    #         "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
-    #     }
-    # }
-    DATABASES = {"default": dj_database_url.config(default="sqlite:///db.sqlite3")}
-    # DB_DIR = os.path.join(BASE_DIR, "db.sqlite3")
-else:
-    DATABASES = {
-        "default": dj_database_url.config(default=os.environ.get("DATABASE_URL"))
-    }
+DATABASES = {"default": dj_database_url.config(default="sqlite:///db.sqlite3")}
+# if os.environ.get("DEBUG"):
+#     DATABASES = {
+#         "default": {
+#             "ENGINE": "django.db.backends.sqlite3",
+#             "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+#         }
+#     }
+#     # DB_DIR = os.path.join(BASE_DIR, "db.sqlite3")
+# else:
+#     DATABASES = {
+#         "default": dj_database_url.config(default=os.environ.get("DATABASE_URL"))
+#     }
 
 
 # Password validation

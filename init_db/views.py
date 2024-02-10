@@ -3,6 +3,7 @@ from django.conf import settings
 from django.db import connection
 import pandas as pd
 import numpy as np
+import csv
 from sqlalchemy import create_engine
 import os
 from .models import (
@@ -31,12 +32,28 @@ def init_food(request):
     csv_file = pd.read_csv(path)
     csv_file["id"] = np.arange(csv_file.shape[0])
     result = csv_file.to_sql("food", con=conn, if_exists="replace", index=False)
+    # with open(path, "r", newline="", encoding="utf-8") as file:
+    #     csv_reader = csv.DictReader(file)
+
+    #     for i, row in enumerate(csv_reader):
+    #         data_to_save = FoodModel(
+    #             id=i,
+    #             title=row["title"],
+    #             address=row["address"],
+    #             phone=row["phone"],
+    #             score=row["score"],
+    #             open_time=row["open_time"],
+    #             comment1=row["comment1"],
+    #             comment2=row["comment2"],
+    #             comment3=row["comment3"],
+    #         )
+    #         data_to_save.save()
+    #         # print(row)
 
     content = {
         "path": path,
-        "file": csv_file,
-        "length": len(csv_file),
-        "result": result,
+        # "file": csv_file,
+        # "length": len(csv_file),
     }
     return render(request, "init/result.html", context=content)
 
