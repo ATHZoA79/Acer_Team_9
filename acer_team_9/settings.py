@@ -121,12 +121,13 @@ WSGI_APPLICATION = "acer_team_9.wsgi.application"
 # DB_DIR = os.path.join(BASE_DIR, "db.sqlite3")
 DB_DIR = os.path.join(BASE_DIR, "db.sqlite3")
 if os.environ.get("DEBUG"):
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.sqlite3",
-            "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
-        }
-    }
+    # DATABASES = {
+    #     "default": {
+    #         "ENGINE": "django.db.backends.sqlite3",
+    #         "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+    #     }
+    # }
+    DATABASES = {"default": dj_database_url.config(default="sqlite:///db.sqlite3")}
     # DB_DIR = os.path.join(BASE_DIR, "db.sqlite3")
 else:
     DATABASES = {
