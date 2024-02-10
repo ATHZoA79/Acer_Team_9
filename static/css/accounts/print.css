@@ -1,0 +1,45 @@
+@charset "utf-8";
+/* CSS Document */
+
+.header {
+    display: none;
+    \0 display: none;
+    \9 display: none !important;
+}
+
+.footer {
+    display: none;
+    \0 display: none;
+    \9 display: none !important;
+}
+
+.condition-btn {
+    display: none;
+    \0 display: none;
+    \9 display: none !important;
+}
+
+.main {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 0;
+}
+
+.feature {
+    display: none;
+    \0 display: none;
+    \9 display: none !important;
+}
+
+.article-direction {
+    display: none;
+    \0 display: none;
+    \9 display: none !important;
+}
+
+.sort-personal {
+    display: none;
+    \0 display: none;
+    \9 display: none !important;
+}

@@ -10,11 +10,17 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
-from pathlib import Path
+from decouple import Config, RepositoryEnv, config
 import os
+import dj_database_url
+import django_heroku
+import dotenv
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+dotenv.load_dotenv()
+
+# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 
 # Quick-start development settings - unsuitable for production
@@ -24,6 +30,20 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-4tejy1l*we6ni76v7$-!+mymqql_d*t5)q7t&ouz2d9-gsbbpm"
 
 # SECURITY WARNING: don't run with debug turned on in production!
+if os.environ.get("ENVIRONMENT") == "development":
+    DEBUG = True
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+        }
+    }
+    SECRE_KEY = os.environ.get("SECRET_KEY")
+elif os.environ.get("ENVIRONMENT") == "production":
+    DEBUG = False
+    DATABASES = {
+        "default": dj_database_url.config(default=os.environ.get("DATABASE_URL"))
+    }
 DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
@@ -40,7 +60,7 @@ ACCOUNT_EMAIL_VERIFICATION = "none"
 ACCOUNT_ADAPTER = "allauth.account.adapter.DefaultAccountAdapter"
 
 # Application definition
-SITE_ID = 3
+SITE_ID = 5
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -50,8 +70,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.sites",
+    "index",
     "main",
-    "users",
     "init_db",
     # django_allauth configurations
     "allauth",
@@ -59,6 +79,7 @@ INSTALLED_APPS = [
     "allauth.socialaccount",
     "allauth.socialaccount.providers.google",
     "allauth.socialaccount.providers.line",
+    "whitenoise.runserver_nostatic",
 ]
 
 MIDDLEWARE = [
@@ -71,6 +92,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django.middleware.locale.LocaleMiddleware",
     "allauth.account.middleware.AccountMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
 ROOT_URLCONF = "acer_team_9.urls"
@@ -96,14 +118,19 @@ WSGI_APPLICATION = "acer_team_9.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
-    }
-}
 DB_DIR = os.path.join(BASE_DIR, "db.sqlite3")
+if os.environ.get("DEBUG"):
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+        }
+    }
+    # DB_DIR = os.path.join(BASE_DIR, "db.sqlite3")
+else:
+    DATABASES = {
+        "default": dj_database_url.config(default=os.environ.get("DATABASE_URL"))
+    }
 
 
 # Password validation
@@ -139,15 +166,18 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
-
+STATIC_ROOT = "/static/"
 STATIC_URL = os.path.join(BASE_DIR, "static/")
-# STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static/"),
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
 
 # Provider specific settings
 SOCIALACCOUNT_PROVIDERS = {
@@ -160,22 +190,13 @@ SOCIALACCOUNT_PROVIDERS = {
         "sites": [3],
     },
     "line": {
-        "APP": {
-            "client_id": "2002992889",
-            "secret": "89009cdbef7bce913eb09988fb8231b8",
-        },
         "SCOPE": ["profile", "openid", "email"],
-        "redirect_url": "http://127.0.0.1:8000/line/login/callback/",
+        "AUTH_PARAMS": {"access_type": "online"},
         "sites": [4],
     },
 }
-
-LOGIN_REDIRECT_URL = "/"
+# LOGIN_URL = "/accounts/login/"
+LOGIN_REDIRECT_URL = "/scenic"
 LOGOUT_REDIRECT_URL = "/"
 
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"  # new
-EMAIL_HOST = "smtp.gmail.com"  # new
-EMAIL_PORT = 587  # new
-EMAIL_HOST_USER = "106025017anthonyhsu@gmail.com"  # new
-EMAIL_HOST_PASSWORD = "cllsxitzvlfgdbgf"  # new
-EMAIL_USE_TLS = True  # new
+django_heroku.settings(locals())

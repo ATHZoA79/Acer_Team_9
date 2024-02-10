@@ -1,0 +1,83 @@
+<!-- 選擇行程加入行程表 -->
+
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>行程規畫表</title>
+  <!-- Link to Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- Link to Sortable.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
+  <!-- Link to custom CSS -->
+  <link rel="stylesheet" href="css/select.css">
+
+</head>
+<body>
+
+  <div class="container mt-4">
+    <h2 class="text-center mb-4">行程規畫表</h2>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th rowspan="2" scope="col">序號</th>
+          <th rowspan="2" scope="col">行政區</th>
+          <th rowspan="2" scope="col">景點</th>
+          <th rowspan="2" scope="col">操作</th>
+        </tr>
+        <tr></tr> <!-- 空的第二行，用來保持表格結構 -->
+      </thead>
+      <tbody id="sortable-table">
+        <tr>
+          <th scope="row">1</th>
+          <td>中正區</td>
+          <td>中正紀念堂</td>
+          <td><button class="btn btn-danger" onclick="deleteRow(this)">刪除</button></td>
+        </tr>
+        <tr>
+          <th scope="row">2</th>
+          <td>信義區</td>
+          <td>台北101</td>
+          <td><button class="btn btn-danger" onclick="deleteRow(this)">刪除</button></td>
+        </tr>
+        <tr>
+          <th scope="row">3</th>
+          <td>大安區</td>
+          <td>國立故宮博物院</td>
+          <td><button class="btn btn-danger" onclick="deleteRow(this)">刪除</button></td>
+        </tr>
+        <tr>
+          <th scope="row">4</th>
+          <td>北投區</td>
+          <td>地熱谷</td>
+          <td><button class="btn btn-danger" onclick="deleteRow(this)">刪除</button></td>
+        </tr>
+        <tr>
+          <th scope="row">5</th>
+          <td>士林區</td>
+          <td>士林夜市</td>
+          <td><button class="btn btn-danger" onclick="deleteRow(this)">刪除</button></td>
+        </tr>
+        <!-- Add more rows as needed -->
+      </tbody>
+    </table>
+
+    <button id="saveToDBButton" class="btn btn-primary float-right">儲存到行程表</button>
+  </div>
+
+  <!-- Link to Bootstrap JS and Popper.js -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <!-- Link to jQuery and jQuery UI -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+  <!-- Link to custom JavaScript -->
+  <script src="js/select.js"></script>
+
+</body>
+</html>

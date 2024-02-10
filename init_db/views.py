@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.conf import settings
 from django.db import connection
 import pandas as pd
+import numpy as np
 from sqlalchemy import create_engine
 import os
 from .models import (
@@ -18,12 +19,17 @@ static_root = settings.STATIC_URL
 db_dir = settings.DB_DIR
 
 
+def init_view(request):
+    return render(request, "init/index.html")
+
+
 def init_food(request):
     path = os.path.join(settings.BASE_DIR, "static", "food.csv")
 
     conn = create_engine(f"sqlite:///{db_dir}")
 
     csv_file = pd.read_csv(path)
+    csv_file["id"] = np.arange(csv_file.shape[0])
     result = csv_file.to_sql("food", con=conn, if_exists="replace", index=False)
 
     content = {
@@ -32,7 +38,7 @@ def init_food(request):
         "length": len(csv_file),
         "result": result,
     }
-    return render(request, "init/index.html", context=content)
+    return render(request, "init/result.html", context=content)
 
 
 def init_drink(request):
@@ -41,6 +47,7 @@ def init_drink(request):
     conn = create_engine(f"sqlite:///{db_dir}")
 
     csv_file = pd.read_csv(path)
+    csv_file["id"] = np.arange(csv_file.shape[0])
     result = csv_file.to_sql("drink", con=conn, if_exists="replace", index=False)
 
     content = {
@@ -49,7 +56,7 @@ def init_drink(request):
         "length": len(csv_file),
         "result": result,
     }
-    return render(request, "init/index.html", context=content)
+    return render(request, "init/result.html", context=content)
 
 
 def init_bar(request):
@@ -58,6 +65,7 @@ def init_bar(request):
     conn = create_engine(f"sqlite:///{db_dir}")
 
     csv_file = pd.read_csv(path)
+    csv_file["id"] = np.arange(csv_file.shape[0])
     result = csv_file.to_sql("bar", con=conn, if_exists="replace", index=False)
 
     content = {
@@ -66,7 +74,7 @@ def init_bar(request):
         "length": len(csv_file),
         "result": result,
     }
-    return render(request, "init/index.html", context=content)
+    return render(request, "init/result.html", context=content)
 
 
 def init_sight(request):
@@ -75,6 +83,7 @@ def init_sight(request):
     conn = create_engine(f"sqlite:///{db_dir}")
 
     csv_file = pd.read_csv(path)
+    csv_file["id"] = np.arange(csv_file.shape[0])
     result = csv_file.to_sql("sight", con=conn, if_exists="replace", index=False)
 
     content = {
@@ -83,7 +92,7 @@ def init_sight(request):
         "length": len(csv_file),
         "result": result,
     }
-    return render(request, "init/index.html", context=content)
+    return render(request, "init/result.html", context=content)
 
 
 def init_hotel(request):
@@ -92,6 +101,7 @@ def init_hotel(request):
     conn = create_engine(f"sqlite:///{db_dir}")
 
     csv_file = pd.read_csv(path)
+    csv_file["id"] = np.arange(csv_file.shape[0])
     result = csv_file.to_sql("hotel", con=conn, if_exists="replace", index=False)
 
     content = {
@@ -100,7 +110,7 @@ def init_hotel(request):
         "length": len(csv_file),
         "result": result,
     }
-    return render(request, "init/index.html", context=content)
+    return render(request, "init/result.html", context=content)
 
 
 def init_restaurant(request):
@@ -109,6 +119,7 @@ def init_restaurant(request):
     conn = create_engine(f"sqlite:///{db_dir}")
 
     csv_file = pd.read_csv(path)
+    csv_file["id"] = np.arange(csv_file.shape[0])
     result = csv_file.to_sql("restaurant", con=conn, if_exists="replace", index=False)
 
     content = {
@@ -117,4 +128,4 @@ def init_restaurant(request):
         "length": len(csv_file),
         "result": result,
     }
-    return render(request, "init/index.html", context=content)
+    return render(request, "init/result.html", context=content)

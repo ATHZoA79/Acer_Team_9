@@ -1,0 +1,263 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/scenic/style.css' %}">
+    <title>景點總覽</title>
+</head>
+
+<body>
+    <!-- 導覽列 -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white">
+        <a class="navbar-brand" href="{% url 'index' %}"><img src="{% static 'image/scenic/logo.png'%}" alt="logo"
+                class="logo"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                {% if user.is_authenticated %}
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">{{user.username}}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'schedules' %}">我的行程表</a>
+                </li>
+                {% else %}
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'account_login' %}">登入/註冊 </a>
+                </li>
+                {% endif %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'index' %}">回首頁</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 次導覽列 -->
+    <nav class="second-nav">
+        <div class=""> <!-- 確保外層容器是 container-fluid -->
+            <div class="" id="subNavbar">
+                <ul class=""> <!-- 使用 mx-auto 將內容水平置中 -->
+                    <li class="">
+                        <div data-genre="food" class="title-bar nav-active">小吃</div>
+                    </li>
+                    <li class="">
+                        <div data-genre="sight" class="title-bar">景點/伴手禮</div>
+                    </li>
+                    <li class="">
+                        <div data-genre="restaurant" class="title-bar">餐廳</div>
+                    </li>
+                    <li class="">
+                        <div data-genre="bar" class="title-bar">酒吧</div>
+                    </li>
+                    <li class="">
+                        <div data-genre="hotel" class="title-bar">住宿</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <div class="container-fluid main">
+        <div class="row">
+            <!-- 左側列 -->
+            <div class="col-md-6">
+                <h3>臺灣行政區</h3>
+                <p class="intro">
+                    台灣分為22個縣市，包括6個直轄市和2個特別行政區。首都台北市現代繁榮，新北市多元景點，桃園市交通樞紐。台中市文化歷史豐富，彰化縣古老府城。台南市擁有眾多古蹟，高雄市是港口城市。其他地區如基隆、新竹、嘉義等也各有特色。東部的花蓮、台東以自然美景和原住民文化聞名。台灣融合現代與傳統，提供遊客豐富多元的旅遊體驗。
+                </p>
+                <ul class="list-unstyled row scrollable-container">
+                    <!-- 連結的li，重複22次 -->
+                    <div class="region-link" data-region="基隆市">
+                        <li class="col-md-2">
+                            <img src="{%static 'image/scenic/Keelung.jpg'%}" alt="臺北市" class="custom-img">
+                            <p class="region-text">基隆市</p>
+                        </li>
+                    </div>
+                    <div class="region-link" data-region="臺北市">
+                        <li class="col-md-2">
+                            <img src="{%static 'image/scenic/Taipei.jpg'%}" alt="臺北市" class="custom-img">
+                            <p class="region-text">臺北市</p>
+                        </li>
+                    </div>
+                    <div class="region-link" data-region="新北市">
+                        <li class="col-md-2">
+                            <img src="{%static 'image/scenic/New_Taipei.jpg'%}" alt="新北市" class="custom-img">
+                            <p class="region-text">新北市</p>
+                        </li>
+                    </div>
+                    <div class="region-link" data-region="桃園市">
+                        <li class="col-md-2">
+                            <img src="{%static 'image/scenic/Taoyuan.jpg'%}" alt="桃園市" class="custom-img">
+                            <p class="region-text">桃園市</p>
+                        </li>
+                    </div>
+                    <div class="region-link" data-region="新竹市">
+                        <li class="col-md-2">
+                            <img src="{%static 'image/scenic/Hsinchu_city.jpg'%}" alt="新竹市" class="custom-img">
+                            <p class="region-text">新竹市</p>
+                        </li>
+                    </div>
+                    <div class="region-link" data-region="新竹縣">
+                        <li class="col-md-2">
+                            <img src="{%static 'image/scenic/Hsinchu_county.jpg'%}" alt="新竹縣" class="custom-img">
+                            <p class="region-text">新竹縣</p>
+                        </li>
+                    </div>
+                    <div class="region-link" data-region="苗栗縣">
+                        <li class="col-md-2">
+                            <img src="{%static 'image/scenic/Miaoli.jpg'%}" alt="苗栗縣" class="custom-img">
+                            <p class="region-text">苗栗縣</p>
+                        </li>
+                    </div>
+                    <div class="region-link" data-region="臺中市">
+                        <li class="col-md-2">
+                            <img src="{%static 'image/scenic/Taichung.jpg'%}" alt="臺中市" class="custom-img">
+                            <p class="region-text">臺中市</p>
+                        </li>
+                    </div>
+                    <div class="region-link" data-region="彰化縣">
+                        <li class="col-md-2">
+                            <img src="{%static 'image/scenic/Changhua.jpg'%}" alt="彰化縣" class="custom-img">
+                            <p class="region-text">彰化縣</p>
+                        </li>
+                    </div>
+                    </a>
+                    <div class="region-link" data-region="雲林縣">
+                        <li class="col-md-2">
+                            <img src="{%static 'image/scenic/Yunlin.jpg'%}" alt="雲林縣" class="custom-img">
+                            <p class="region-text">雲林縣</p>
+                        </li>
+                    </div>
+                    <div class="region-link" data-region="嘉義市">
+                        <li class="col-md-2">
+                            <img src="{%static 'image/scenic/Chiayi_city.jpg'%}" alt="嘉義市" class="custom-img">
+                            <p class="region-text">嘉義市</p>
+                        </li>
+                    </div>
+                    <div class="region-link" data-region="嘉義縣">
+                        <li class="col-md-2">
+                            <img src="{%static 'image/scenic/Chiayi_county.jpg'%}" alt="嘉義縣" class="custom-img">
+                            <p class="region-text">嘉義縣</p>
+                        </li>
+                    </div>
+                    <div class="region-link" data-region="臺南市">
+                        <li class="col-md-2">
+                            <img src="{%static 'image/scenic/Taichung.jpg'%}" alt="臺南市" class="custom-img">
+                            <p class="region-text">臺南市</p>
+                        </li>
+                    </div>
+                    <div class="region-link" data-region="高雄市">
+                        <li class="col-md-2">
+                            <img src="{%static 'image/scenic/Kaohsiung.jpg'%}" alt="高雄市" class="custom-img">
+                            <p class="region-text">高雄市</p>
+                        </li>
+                    </div>
+                    <div class="region-link" data-region="屏東縣">
+                        <li class="col-md-2">
+                            <img src="{%static 'image/scenic/Pingtung.jpg'%}" alt="屏東縣" class="custom-img">
+                            <p class="region-text">屏東縣</p>
+                        </li>
+                    </div>
+                    <div class="region-link" data-region="南投縣">
+                        <li class="col-md-2">
+                            <img src="{%static 'image/scenic/Nantou.jpg'%}" alt="南投縣" class="custom-img">
+                            <p class="region-text">南投縣</p>
+                        </li>
+                    </div>
+                    <div class="region-link" data-region="宜蘭縣">
+                        <li class="col-md-2">
+                            <img src="{%static 'image/scenic/Yilan.jpg'%}" alt="宜蘭縣" class="custom-img">
+                            <p class="region-text">宜蘭縣</p>
+                        </li>
+                    </div>
+                    <div class="region-link" data-region="花蓮縣">
+                        <li class="col-md-2">
+                            <img src="{%static 'image/scenic/Hualien_county.jpg'%}" alt="花蓮縣" class="custom-img">
+                            <p class="region-text">花蓮縣</p>
+                        </li>
+                    </div>
+                    <div class="region-link" data-region="臺東縣">
+                        <li class="col-md-2">
+                            <img src="{%static 'image/scenic/Taitung.jpg'%}" alt="臺東縣" class="custom-img">
+                            <p class="region-text">臺東縣</p>
+                        </li>
+                    </div>
+                    <div class="region-link" data-region="澎湖縣">
+                        <li class="col-md-2">
+                            <img src="{%static 'image/scenic/Penghu.jpg'%}" alt="澎湖縣" class="custom-img">
+                            <p class="region-text">澎湖縣</p>
+                        </li>
+                    </div>
+                    <div class="region-link" data-region="金門縣">
+                        <li class="col-md-2">
+                            <img src="{%static 'image/scenic/Kinmen.jpg'%}" alt="金門縣" class="custom-img">
+                            <p class="region-text">金門縣</p>
+                        </li>
+                    </div>
+                    <div class="region-link" data-region="連江縣">
+                        <li class="col-md-2">
+                            <img src="{%static 'image/scenic/Lienchiang.jpg'%}" alt="連江縣" class="custom-img">
+                            <p class="region-text">連江縣</p>
+                        </li>
+                    </div>
+                </ul>
+            </div>
+            <!-- 右側列 -->
+            <div class="col-md-6 map-col">
+                <img src="{% static 'image/scenic/TaiwanMap.png'%}" alt="台灣地圖" class="map">
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and Popper.js (if needed) -->
+    <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
+
+</body>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // 行程類別導覽列點擊後，會產生底線標註
+        var subNavBarButtons = document.querySelectorAll('.title-bar')
+        subNavBarButtons.forEach(element => element.addEventListener('click', function (e) {
+            subNavBarButtons.forEach(button => {
+                button.classList.remove('nav-active')
+            })
+            this.classList.add('nav-active')
+        }))
+
+        // 點擊行政區後，取得行程類別和行政區並發送請求
+        var regionButtons = document.querySelectorAll('.region-link')
+        regionButtons.forEach(element => element.addEventListener('click', function (e) {
+            var currentGenre = document.getElementsByClassName('nav-active')[0].dataset.genre
+            var currentRegion = this.dataset.region
+            console.log(currentGenre)
+            console.log(currentRegion)
+
+            fetch(`/search/?region=${currentRegion}&genre=${currentGenre}`, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+                .then(response => {
+                    if (response.ok) {
+                        window.location.href = response.url;
+                    } else {
+                        console.error('Error on fetching datas.');
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        }))
+    })
+</script>
+
+</html>

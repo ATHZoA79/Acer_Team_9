@@ -1,35 +1,265 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Website</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
-  <div class="container py-4">
-    <h1>Index Page</h1>
-    {% if user.is_authenticated %}
-    <p>Welcome <strong>{{ user.username }}</strong></p>
-    <a href="/accounts/logout">
-      <button class="px-2 btn btn-secondary">Logout</button>
-    </a>
-    {% else %}
-    <p>Please <a href="/accounts/login">log in</a></p>
-    {% endif %}
-  </div>
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-    crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
-    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
-    crossorigin="anonymous"></script>
+    <section>
+        <nav>
+            <div class="logo">
+                <img src="{% static '/image/logo.png' %}">
+            </div>
+
+            <div class="login">
+                {% if not user.is_authenticated %}
+                <a href="/accounts/login">會員 登入</a>
+                {% else %}
+                <p><a href="/user/schedules">{{user.username}}</a><a href="/accounts/logout">登出</a></p>
+                {% endif %}
+            </div>
+        </nav>
+
+        <div class="main">
+            <div class="heading">
+                <h1>旅遊<span><br>好夥伴</span></h1>
+            </div>
+
+            <a href="{% url 'scenic' %}">開始探索 >></a>
+        </div>
+    </section>
+
+    <!-- Packages -->
+    <div class="packges">
+        <h1>行程<span>預覽處</span></h1>
+        <div class="packges_box">
+            <div class="packges_card">
+                <div class="packges_image">
+                    <img src="{% static 'image/travelFood.jpg' %}">
+                    <!-- <img src="/static/image/travelFood.jpg"> -->
+                </div>
+
+                <div class="packges_text">
+                    <div class="p_head">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <h2>餐廳</h2>
+                    </div>
+                    <p>
+                        輸入待編輯文字(預留)
+                    </p>
+                    <p class="price">$價格</p>
+                    <a href="#" class="p_btn">探索</a>
+                </div>
+            </div>
+
+            <div class="packges_card">
+                <div class="packges_image">
+                    <img src="{% static 'image/snackTravel.jpg' %}">
+                </div>
+                <div class="packges_text">
+                    <div class="p_head">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <h2>小吃</h2>
+                    </div>
+                    <p>
+                        輸入待編輯文字(預留)
+                    </p>
+                    <p class="price">$價格</p>
+                    <a href="#" class="p_btn">探索</a>
+                </div>
+            </div>
+
+            <div class="packges_card">
+                <div class="packges_image">
+                    <img src="{% static 'image/beerTravel.jpg' %}">
+                </div>
+
+                <div class="packges_text">
+                    <div class="p_head">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <h2>酒吧</h2>
+                    </div>
+
+                    <p>
+                        輸入待編輯文字(預留)
+                    </p>
+
+                    <p class="price">$價格</p>
+                    <a href="#" class="p_btn">探索</a>
+                </div>
+            </div>
+
+            <div class="packges_card">
+                <div class="packges_image">
+                    <img src="{% static 'image/destinationTravel.jpg' %}">
+                </div>
+
+                <div class="packges_text">
+                    <div class="p_head">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <h2>景點 伴手禮</h2>
+                    </div>
+                    <p>
+                        輸入待編輯文字(預留)
+                    </p>
+                    <p class="price">$價格</p>
+                    <a href="#" class="p_btn">探索</a>
+                </div>
+            </div>
+
+            <div class="packges_card">
+                <div class="packges_image">
+                    <img src="{% static 'image/hotelTravel.jpg' %}">
+                </div>
+                <div class="packges_text">
+                    <div class="p_head">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <h2>旅館</h2>
+                    </div>
+                    <p>
+                        輸入待編輯文字(預留)
+                    </p>
+                    <p class="price">$價格</p>
+                    <a href="#" class="p_btn">探索</a>
+                </div>
+            </div>
+            <div class="packges_card">
+                <div class="packges_image">
+                    <img src="{% static 'image/about.png' %}">
+                </div>
+                <div class="packges_text">
+                    <div class="p_head">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <h2>隨機安排行程</h2>
+                    </div>
+                    <p>
+                        輸入待編輯文字(簡介之類的)
+                    </p>
+                    <p class="price">$價格</p>
+                    <a href="#" class="p_btn">探索</a>
+                </div>
+            </div>
+
+            <!--
+            <div class="packges_card">
+
+                <div class="packges_image">
+                    <img src="static/image/packages7.webp">
+                </div>
+
+                <div class="packges_text">
+
+                    <div class="p_head">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <h2>Packages</h2>
+                    </div>
+
+                    <p>
+                        輸入待編輯文字...
+                    </p>
+
+                    <p class="price">$價格</p>
+                    <a href="#" class="p_btn">Explore</a>
+
+                </div>
+
+            </div>
+
+            <div class="packges_card">
+
+                <div class="packges_image">
+                    <img src="static/image/packages8.jpg">
+                </div>
+
+                <div class="packges_text">
+
+                    <div class="p_head">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <h2>Packages</h2>
+                    </div>
+
+                    <p>
+                        輸入待編輯文字...
+                    </p>
+
+                    <p class="price">$價格</p>
+                    <a href="#" class="p_btn">Explore</a>
+
+                </div>
+
+            </div>
+            -->
+        </div>
+    </div>
+
+    <!--Subscribe-->
+
+    <div class="subscribe">
+
+        <h1><span>關注</span>我們</h1>
+
+        <div class="s_search_bar">
+            <input type="text" placeholder="輸入您的電子郵件">
+            <button>訂閱</button>
+        </div>
+
+    </div>
+
+
+
+
+    <!-- Footer -->
+
+    <footer>
+        <div class="footer_container">
+
+            <div class="footer_main">
+                <div class="footer_tag">
+                    <h1>Quick Link</h1>
+                    <p class="center">Home</p>
+                    <p class="center">About</p>
+                    <p class="center">Packages</p>
+                    <p class="center">Destination</p>
+                    <p class="center">Review</p>
+                    <p class="center">Blog</p>
+                </div>
+                <div class="footer_tag">
+                    <h1>Experience Link</h1>
+                    <p class="center">Adventure</p>
+                    <p class="center">Hotel and Restaurant</p>
+                    <p class="center">Beach</p>
+                    <p class="center">Nature</p>
+                    <p class="center">Camping</p>
+                    <p class="center">Party</p>
+                </div>
+                <div class="footer_tag">
+                    <h1>Content Info</h1>
+                    <p><i class="fa-solid fa-location-dot"></i>115 Colombo, Sri Lanka</p>
+                    <p><i class="fa-solid fa-phone"></i>+94 12 345 9789</p>
+                    <p><i class="fa-solid fa-phone"></i>+94 22 658 785</p>
+                    <p><i class="fa-solid fa-envelope"></i>travel123@gmail.com</p>
+                </div>
+                <div class="footer_tag">
+                    <h1>Content Info</h1>
+                    <p><i class="fa-brands fa-facebook-f"></i>Facebook</p>
+                    <p><i class="fa-brands fa-twitter"></i>Twitter</p>
+                    <p><i class="fa-brands fa-instagram"></i>Instagram</p>
+                    <p><i class="fa-brands fa-linkedin-in"></i>Linkedin</p>
+                    <p><i class="fa-brands fa-google"></i>Google</p>
+                </div>
+            </div>
+            <p class="end">Produce By 2024 宏碁班 第九組<span><i class="fa-solid fa-face-grin"></i></span></p>
+        </div>
+    </footer>
 </body>
 
 </html>
