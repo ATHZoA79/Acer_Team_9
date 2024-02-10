@@ -16,7 +16,7 @@ from .models import (
 
 # Create your views here.
 static_root = settings.STATIC_URL
-db_dir = settings.DB_DIR
+db_dir = "sqlite:///db.sqlite3"
 
 
 def init_view(request):
@@ -26,7 +26,7 @@ def init_view(request):
 def init_food(request):
     path = os.path.join(settings.BASE_DIR, "static", "food.csv")
 
-    conn = create_engine(f"sqlite:///{db_dir}")
+    conn = create_engine(db_dir)
 
     csv_file = pd.read_csv(path)
     csv_file["id"] = np.arange(csv_file.shape[0])
@@ -44,7 +44,7 @@ def init_food(request):
 def init_drink(request):
     path = os.path.join(settings.BASE_DIR, "static", "drink.csv")
 
-    conn = create_engine(f"sqlite:///{db_dir}")
+    conn = create_engine(db_dir)
 
     csv_file = pd.read_csv(path)
     csv_file["id"] = np.arange(csv_file.shape[0])
@@ -62,7 +62,7 @@ def init_drink(request):
 def init_bar(request):
     path = os.path.join(settings.BASE_DIR, "static", "bar.csv")
 
-    conn = create_engine(f"sqlite:///{db_dir}")
+    conn = create_engine(db_dir)
 
     csv_file = pd.read_csv(path)
     csv_file["id"] = np.arange(csv_file.shape[0])
@@ -80,7 +80,7 @@ def init_bar(request):
 def init_sight(request):
     path = os.path.join(settings.BASE_DIR, "static", "sight.csv")
 
-    conn = create_engine(f"sqlite:///{db_dir}")
+    conn = create_engine(db_dir)
 
     csv_file = pd.read_csv(path)
     csv_file["id"] = np.arange(csv_file.shape[0])
@@ -98,7 +98,7 @@ def init_sight(request):
 def init_hotel(request):
     path = os.path.join(settings.BASE_DIR, "static", "hotel.csv")
 
-    conn = create_engine(f"sqlite:///{db_dir}")
+    conn = create_engine(db_dir)
 
     csv_file = pd.read_csv(path)
     csv_file["id"] = np.arange(csv_file.shape[0])
@@ -116,7 +116,7 @@ def init_hotel(request):
 def init_restaurant(request):
     path = os.path.join(settings.BASE_DIR, "static", "restaurant.csv")
 
-    conn = create_engine(f"sqlite:///{db_dir}")
+    conn = create_engine(db_dir)
 
     csv_file = pd.read_csv(path)
     csv_file["id"] = np.arange(csv_file.shape[0])

@@ -238,10 +238,10 @@
         // 點擊行政區後，取得行程類別和行政區並發送請求
         var regionButtons = document.querySelectorAll('.region-link')
         regionButtons.forEach(element => element.addEventListener('click', function (e) {
-            var currentGenre = document.getElementsByClassName('nav-active')[0].dataset.genre
+            var currentGenre = document.querySelector('.title-bar.nav-active').dataset.genre
             var currentRegion = this.dataset.region
-            console.log(currentGenre)
-            console.log(currentRegion)
+            // console.log(currentGenre)
+            // console.log(currentRegion)
 
             fetch(`/search/?region=${currentRegion}&genre=${currentGenre}`, {
                 headers: {

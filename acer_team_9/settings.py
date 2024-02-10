@@ -118,6 +118,7 @@ WSGI_APPLICATION = "acer_team_9.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
+# DB_DIR = os.path.join(BASE_DIR, "db.sqlite3")
 DB_DIR = os.path.join(BASE_DIR, "db.sqlite3")
 if os.environ.get("DEBUG"):
     DATABASES = {

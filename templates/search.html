@@ -47,35 +47,35 @@
         <ul class=""> <!-- 使用 mx-auto 將內容水平置中 -->
           <li class="">
             {% if genre == 'food' %}
-            <div data-genre="food" class="title-bar active">小吃</div>
+            <div data-genre="food" class="title-bar nav-active">小吃</div>
             {% else %}
             <div data-genre="food" class="title-bar">小吃</div>
             {% endif %}
           </li>
           <li class="">
             {% if genre == 'sight' %}
-            <div data-genre="sight" class="title-bar active">景點/伴手禮</div>
+            <div data-genre="sight" class="title-bar nav-active">景點/伴手禮</div>
             {% else %}
             <div data-genre="sight" class="title-bar">景點/伴手禮</div>
             {% endif %}
           </li>
           <li class="">
             {% if genre == 'restaurant' %}
-            <div data-genre="restaurant" class="title-bar active">餐廳</div>
+            <div data-genre="restaurant" class="title-bar nav-active">餐廳</div>
             {% else %}
             <div data-genre="restaurant" class="title-bar">餐廳</div>
             {% endif %}
           </li>
           <li class="">
             {% if genre == 'bar' %}
-            <div data-genre="bar" class="title-bar active">酒吧</div>
+            <div data-genre="bar" class="title-bar nav-active">酒吧</div>
             {% else %}
             <div data-genre="bar" class="title-bar">酒吧</div>
             {% endif %}
           </li>
           <li class="">
             {% if genre == 'hotel' %}
-            <div data-genre="hotel" class="title-bar active">住宿</div>
+            <div data-genre="hotel" class="title-bar nav-active">住宿</div>
             {% else %}
             <div data-genre="hotel" class="title-bar">住宿</div>
             {% endif %}
@@ -307,6 +307,7 @@
     var currGenre = "{{genre}}"
     var currLimit = "{{page_limit}}"
     var currRegion = "{{region}}"
+    // console.log(currPage, currGenre, currLimit)
     // 行程類別導覽列點擊後，會產生底線標註
     var subNavBarButtons = document.querySelectorAll('.title-bar')
     subNavBarButtons.forEach(element => element.addEventListener('click', function (e) {
@@ -319,7 +320,7 @@
     // 點擊行政區後，取得行程類別和行政區並發送請求
     var regionButtons = document.querySelectorAll('.region-link')
     regionButtons.forEach(element => element.addEventListener('click', function (e) {
-      var currentGenre = document.getElementsByClassName('nav-active')[0].dataset.genre
+      var currentGenre = document.querySelector('.title-bar.nav-active').dataset.genre
       var currentRegion = this.dataset.region
 
       fetch(`/search/?region=${currentRegion}&genre=${currentGenre}`)
@@ -339,7 +340,7 @@
 
     prevPageButton.addEventListener('click', function () {
       let prevPage = currPage - 1
-      if (prevPage > 1) {
+      if (prevPage > 0) {
         fetch(`/search/?region=${currRegion}&genre=${currGenre}&page=${prevPage}`)
           .then(response => {
             if (response.ok) {
@@ -366,7 +367,7 @@
       }
     })
 
-    // console.log(currPage, currGenre, currLimit)
+
 
     // 加入行程規劃的按鈕事件
     var resultContainer = document.getElementById('resultContent');
