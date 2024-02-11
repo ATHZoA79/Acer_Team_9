@@ -134,7 +134,7 @@ DATABASES = {"default": dj_database_url.config(default="sqlite:///db.sqlite3")}
 #     DATABASES = {
 #         "default": dj_database_url.config(default=os.environ.get("DATABASE_URL"))
 #     }
-
+MONGO_URL = "mongodb+srv://106025017anthonyhsu:0P5YpfDyq0gIuQvQ@anthonyhsu.1wwdhd3.mongodb.net/?retryWrites=true&w=majority"
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
