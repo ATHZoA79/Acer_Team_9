@@ -6,6 +6,7 @@ from django.contrib.admin.views.decorators import staff_member_required
 urlpatterns = [
     path("", views.init_view),
     path("food/", views.init_food),
+    path("food_mongo/", views.init_food_mongo),
     path("drink/", views.init_drink),
     path("bar/", views.init_bar),
     path("sight/", views.init_sight),

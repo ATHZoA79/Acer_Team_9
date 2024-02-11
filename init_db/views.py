@@ -1,11 +1,14 @@
 from django.shortcuts import render
 from django.conf import settings
 from django.db import connection
+from django.http import HttpResponse
 import pandas as pd
 import numpy as np
 import csv
 from sqlalchemy import create_engine
 import os
+from pymongo.mongo_client import MongoClient
+from pymongo.server_api import ServerApi
 from .models import (
     FoodModel,
     DrinkModel,
@@ -146,3 +149,28 @@ def init_restaurant(request):
         "result": result,
     }
     return render(request, "init/result.html", context=content)
+
+
+def init_food_mongo(request):
+    uri = "mongodb+srv://106025017anthonyhsu:0P5YpfDyq0gIuQvQ@anthonyhsu.1wwdhd3.mongodb.net/?retryWrites=true&w=majority"
+    client = MongoClient(uri, server_api=ServerApi("1"))
+    try:
+        client.admin.command("ping")
+        print("Pinged your deployment. You successfully connected to MongoDB!")
+        db = client["AnthonyHsu"]
+        collection = db["food"]
+        path = os.path.join(settings.BASE_DIR, "static", "restaurant.csv")
+        csv_file = pd.read_csv(path)
+        csv_file["id"] = np.arange(csv_file.shape[0])
+        result = collection.insert_many(csv_file.to_dict("records"))
+
+        content = {
+            "path": path,
+            "file": csv_file,
+            "length": len(csv_file),
+            "result": result,
+        }
+        return render(request, "init/result.html", content)
+    except Exception as e:
+        return HttpResponse(e)
+    pass

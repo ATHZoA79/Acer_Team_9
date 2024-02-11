@@ -1,6 +1,7 @@
 from django.http import HttpResponse, HttpRequest
 from django.forms.models import model_to_dict
 from django.shortcuts import render, redirect
+from pymongo.mongo_client import MongoClient
 from init_db.models import (
     FoodModel,
     DrinkModel,
@@ -64,3 +65,24 @@ def search(request: HttpRequest):
         "page_limit": page_limit,
     }
     return render(request, "search.html", response)
+
+
+def search_mongo(request: HttpRequest):
+    page = request.GET.get("page", 1)
+    page = int(page)
+    per_page = request.GET.get("per_page", 10)
+    per_page = int(per_page)
+    region = request.GET.get("region", "")
+    genre = request.GET.get("genre", "food")
+    offset = (page - 1) * per_page
+    GROUP_LIMIT = 5
+    if genre == "food":
+        uri = "mongodb+srv://106025017anthonyhsu:0P5YpfDyq0gIuQvQ@anthonyhsu.1wwdhd3.mongodb.net/?retryWrites=true&w=majority"
+        client = MongoClient(uri)
+        db = client["AnthonyHsu"]
+        collection = db["food"]
+        try:
+            datas = collection.find({"region": region}).skip(offset).limit(per_page)
+            return HttpResponse(list(datas))
+        except Exception as e:
+            return HttpResponse(e)
