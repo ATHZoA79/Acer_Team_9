@@ -151,7 +151,7 @@ def init_restaurant(request):
     return render(request, "init/result.html", context=content)
 
 
-uri = "mongodb+srv://106025017anthonyhsu:0P5YpfDyq0gIuQvQ@anthonyhsu.1wwdhd3.mongodb.net/?retryWrites=true&w=majority"
+uri = os.environ.get("MONGO_URL")
 client = MongoClient(uri, server_api=ServerApi("1"))
 
 

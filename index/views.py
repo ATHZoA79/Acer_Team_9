@@ -2,6 +2,7 @@ from django.http import HttpResponse, HttpRequest
 from django.forms.models import model_to_dict
 from django.shortcuts import render, redirect
 from pymongo.mongo_client import MongoClient
+import os
 from init_db.models import (
     FoodModel,
     DrinkModel,
@@ -77,7 +78,7 @@ def search_mongo(request: HttpRequest):
     offset = (page - 1) * per_page
     GROUP_LIMIT = 5
     if genre == "food":
-        uri = "mongodb+srv://106025017anthonyhsu:0P5YpfDyq0gIuQvQ@anthonyhsu.1wwdhd3.mongodb.net/?retryWrites=true&w=majority"
+        uri = os.environ.get("MONGO_URL")
         client = MongoClient(uri)
         db = client["AnthonyHsu"]
         collection = db["food"]
