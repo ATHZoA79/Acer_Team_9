@@ -68,6 +68,11 @@ def search(request: HttpRequest):
     return render(request, "search.html", response)
 
 
+uri = os.environ.get("MONGO_URL")
+client = MongoClient(uri)
+db = client["AnthonyHsu"]
+
+
 def search_mongo(request: HttpRequest):
     page = request.GET.get("page", 1)
     page = int(page)
@@ -78,17 +83,97 @@ def search_mongo(request: HttpRequest):
     offset = (page - 1) * per_page
     GROUP_LIMIT = 5
     if genre == "food":
-        uri = os.environ.get("MONGO_URL")
-        client = MongoClient(uri)
-        db = client["AnthonyHsu"]
         collection = db["food"]
         try:
             datas = collection.find({"region": region}).skip(offset).limit(per_page)
-            return HttpResponse(list(datas))
-        except Exception as e:
-            contents = {
-                "error": e,
-                "region": region,
+            page_limit = collection.count_documents({"region": region})
+            datas = list(datas)
+            page_limit = page_limit // per_page + 1
+            # return HttpResponse(list(datas))
+            response = {
                 "genre": genre,
+                "region": region,
+                "datas": datas,
+                "page": page,
+                "page_limit": page_limit,
             }
+            return render(request, "search.html", response)
+        except Exception as e:
+            contents = [e, region, genre]
+            return HttpResponse(contents)
+    if genre == "sight":
+        collection = db["sight"]
+        try:
+            datas = collection.find({"region": region}).skip(offset).limit(per_page)
+            page_limit = collection.count_documents({"region": region})
+            datas = list(datas)
+            page_limit = page_limit // per_page + 1
+            # return HttpResponse(list(datas))
+            response = {
+                "genre": genre,
+                "region": region,
+                "datas": datas,
+                "page": page,
+                "page_limit": page_limit,
+            }
+            return render(request, "search.html", response)
+        except Exception as e:
+            contents = [e, region, genre]
+            return HttpResponse(contents)
+    if genre == "hotel":
+        collection = db["hotel"]
+        try:
+            datas = collection.find({"region": region}).skip(offset).limit(per_page)
+            page_limit = collection.count_documents({"region": region})
+            datas = list(datas)
+            page_limit = page_limit // per_page + 1
+            # return HttpResponse(list(datas))
+            response = {
+                "genre": genre,
+                "region": region,
+                "datas": datas,
+                "page": page,
+                "page_limit": page_limit,
+            }
+            return render(request, "search.html", response)
+        except Exception as e:
+            contents = [e, region, genre]
+            return HttpResponse(contents)
+    if genre == "bar":
+        collection = db["bar"]
+        try:
+            datas = collection.find({"region": region}).skip(offset).limit(per_page)
+            page_limit = collection.count_documents({"region": region})
+            datas = list(datas)
+            page_limit = page_limit // per_page + 1
+            # return HttpResponse(list(datas))
+            response = {
+                "genre": genre,
+                "region": region,
+                "datas": datas,
+                "page": page,
+                "page_limit": page_limit,
+            }
+            return render(request, "search.html", response)
+        except Exception as e:
+            contents = [e, region, genre]
+            return HttpResponse(contents)
+    if genre == "restaurant":
+        collection = db["restaurant"]
+        try:
+            datas = collection.find({"region": region}).skip(offset).limit(per_page)
+            page_limit = collection.count_documents({"region": region})
+            datas = list(datas)
+            page_limit = page_limit // per_page + 1
+            # return HttpResponse(list(datas))
+            response = {
+                "genre": genre,
+                "region": region,
+                "datas": datas,
+                "page": page,
+                "page_limit": page_limit,
+            }
+            return render(request, "search.html", response)
+        except Exception as e:
+            contents = [e, region, genre]
             return HttpResponse(contents)

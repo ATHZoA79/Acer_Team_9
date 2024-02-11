@@ -153,14 +153,98 @@ def init_restaurant(request):
 
 uri = os.environ.get("MONGO_URL")
 client = MongoClient(uri, server_api=ServerApi("1"))
+db = client["AnthonyHsu"]
 
 
 def init_food_mongo(request):
     try:
         client.admin.command("ping")
         print("Pinged your deployment. You successfully connected to MongoDB!")
-        db = client["AnthonyHsu"]
         collection = db["food"]
+        path = os.path.join(settings.BASE_DIR, "static", "food.csv")
+        csv_file = pd.read_csv(path)
+        csv_file["id"] = np.arange(csv_file.shape[0])
+        result = collection.insert_many(csv_file.to_dict("records"))
+
+        content = {
+            "path": path,
+            "file": csv_file,
+            "length": len(csv_file),
+            "result": result,
+        }
+        return render(request, "init/result.html", content)
+    except Exception as e:
+        return HttpResponse(e)
+
+
+def init_sight_mongo(request):
+    try:
+        client.admin.command("ping")
+        print("Pinged your deployment. You successfully connected to MongoDB!")
+        collection = db["sight"]
+        path = os.path.join(settings.BASE_DIR, "static", "sight.csv")
+        csv_file = pd.read_csv(path)
+        csv_file["id"] = np.arange(csv_file.shape[0])
+        result = collection.insert_many(csv_file.to_dict("records"))
+
+        content = {
+            "path": path,
+            "file": csv_file,
+            "length": len(csv_file),
+            "result": result,
+        }
+        return render(request, "init/result.html", content)
+    except Exception as e:
+        return HttpResponse(e)
+
+
+def init_bar_mongo(request):
+    try:
+        client.admin.command("ping")
+        print("Pinged your deployment. You successfully connected to MongoDB!")
+        collection = db["bar"]
+        path = os.path.join(settings.BASE_DIR, "static", "bar.csv")
+        csv_file = pd.read_csv(path)
+        csv_file["id"] = np.arange(csv_file.shape[0])
+        result = collection.insert_many(csv_file.to_dict("records"))
+
+        content = {
+            "path": path,
+            "file": csv_file,
+            "length": len(csv_file),
+            "result": result,
+        }
+        return render(request, "init/result.html", content)
+    except Exception as e:
+        return HttpResponse(e)
+
+
+def init_hotel_mongo(request):
+    try:
+        client.admin.command("ping")
+        print("Pinged your deployment. You successfully connected to MongoDB!")
+        collection = db["hotel"]
+        path = os.path.join(settings.BASE_DIR, "static", "hotel.csv")
+        csv_file = pd.read_csv(path)
+        csv_file["id"] = np.arange(csv_file.shape[0])
+        result = collection.insert_many(csv_file.to_dict("records"))
+
+        content = {
+            "path": path,
+            "file": csv_file,
+            "length": len(csv_file),
+            "result": result,
+        }
+        return render(request, "init/result.html", content)
+    except Exception as e:
+        return HttpResponse(e)
+
+
+def init_restaurant_mongo(request):
+    try:
+        client.admin.command("ping")
+        print("Pinged your deployment. You successfully connected to MongoDB!")
+        collection = db["restaurant"]
         path = os.path.join(settings.BASE_DIR, "static", "restaurant.csv")
         csv_file = pd.read_csv(path)
         csv_file["id"] = np.arange(csv_file.shape[0])
@@ -175,4 +259,3 @@ def init_food_mongo(request):
         return render(request, "init/result.html", content)
     except Exception as e:
         return HttpResponse(e)
-    pass
