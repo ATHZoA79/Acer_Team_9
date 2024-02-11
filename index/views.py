@@ -69,7 +69,7 @@ def search(request: HttpRequest):
 
 
 uri = os.environ.get("MONGO_URL")
-client = MongoClient(uri)
+client = MongoClient(str(uri))
 db = client["AnthonyHsu"]
 
 

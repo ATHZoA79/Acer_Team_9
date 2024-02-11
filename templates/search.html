@@ -361,6 +361,7 @@
             if (response.ok) {
               window.location.href = response.url;
             } else {
+              console.log(response);
               console.error('Error on fetching datas.');
             }
           })
