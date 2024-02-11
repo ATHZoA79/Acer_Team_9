@@ -85,4 +85,9 @@ def search_mongo(request: HttpRequest):
             datas = collection.find({"region": region}).skip(offset).limit(per_page)
             return HttpResponse(list(datas))
         except Exception as e:
-            return HttpResponse(e)
+            contents = {
+                "error": e,
+                "region": region,
+                "genre": genre,
+            }
+            return HttpResponse(contents)
