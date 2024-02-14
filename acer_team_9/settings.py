@@ -60,7 +60,7 @@ ACCOUNT_EMAIL_VERIFICATION = "none"
 ACCOUNT_ADAPTER = "allauth.account.adapter.DefaultAccountAdapter"
 
 # Application definition
-SITE_ID = 2
+SITE_ID = 1
 # SITE_ID = 4
 
 INSTALLED_APPS = [
@@ -81,7 +81,6 @@ INSTALLED_APPS = [
     "allauth.socialaccount.providers.google",
     "allauth.socialaccount.providers.line",
     "whitenoise.runserver_nostatic",
-    "pymongo",
 ]
 
 MIDDLEWARE = [
