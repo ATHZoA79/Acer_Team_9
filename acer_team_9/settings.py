@@ -60,8 +60,7 @@ ACCOUNT_EMAIL_VERIFICATION = "none"
 ACCOUNT_ADAPTER = "allauth.account.adapter.DefaultAccountAdapter"
 
 # Application definition
-SITE_ID = 1
-# SITE_ID = 4
+SITE_ID = os.environ.get("SITE")
 
 INSTALLED_APPS = [
     "django.contrib.admin",
