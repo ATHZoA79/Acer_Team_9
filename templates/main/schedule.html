@@ -95,15 +95,18 @@
 
         // 取得對應的 schedule_uuid，這裡使用 data 屬性來存儲
         var schedule_uuid = scheduleWrapper.dataset.id;
-        console.log(schedule_uuid)
+        console.log(schedule_uuid, typeof schedule_uuid)
 
         // 發送 AJAX 請求
-        fetch(`/user/delete_schedule/${schedule_uuid}/`, {
+        fetch(`/user/delete_schedule/`, {
           method: 'POST',
           headers: {
             'X-CSRFToken': getCookie('csrftoken'),
             'Content-Type': 'application/json'
           },
+          body: JSON.stringify({
+            "schedule_uuid": schedule_uuid
+          })
         })
           .then(response => {
             if (response.ok) {

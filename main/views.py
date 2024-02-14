@@ -6,6 +6,7 @@ from .models import ScheduleModel, PlanModel
 import openai
 from datetime import datetime
 import json
+import os
 from uuid import uuid4
 
 
@@ -31,15 +32,19 @@ def schedule_view(request):
 
 
 @csrf_exempt
-def delete_schedule(request: HttpRequest, schedule_uuid):
+def delete_schedule(request: HttpRequest):
     """刪除行程表"""
     if request.method == "POST":
         try:
-            schedule_to_delete = ScheduleModel.objects.get(uuid=schedule_uuid)
+            data = json.loads(request.body)
+            uuid = data["schedule_uuid"]
+            print(uuid)
+            schedule_to_delete = ScheduleModel.objects.get(uuid=uuid)
             schedule_to_delete.delete()
             return HttpResponse("Schedule Delete Successfully.")
         except ScheduleModel.DoesNotExist:
-            return HttpResponseServerError
+            return HttpResponse("Schedule does not exist.")
+    return HttpResponse("Invalid request.")
 
 
 def save_plan(request):
@@ -61,9 +66,7 @@ def save_plan(request):
 
 def travel_itinerary_to_str(scenic=""):  # (行程內容) schedule_info
     """將提詞(prompt)傳送到OpenAPI取得回覆"""
-    # openai.api_key = "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"
-    api_key = "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"
-    # api_key = "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"
+    api_key = os.environ.get("OPENAI_API")
 
     scenic = (
         """請幫我安排一個包含"""
@@ -225,7 +228,7 @@ def plans_view(request: HttpRequest):
         schedule_to_save.save()
         result = delete_plans(user_id)
         if result:
-            return redirect("schedule_view")
+            return redirect("schedules")
         else:
             return HttpResponse("Schedule Save Error.")
         # response = {

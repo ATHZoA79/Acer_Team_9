@@ -245,7 +245,7 @@
                 {{data.address}}
               </div>
               <div class="col-4">
-                {{data.phone}}
+                連絡電話：{{data.phone}}
               </div>
             </div>
             <div class="data-comments">
@@ -391,10 +391,14 @@
           },
         })
           .then(response => {
-            if (response.ok) {
+            if (response.url != `${window.location.origin}/accounts/login/`) {
+              // console.log(response.url, `${window.location.origin}/accounts/login/`)
               alert(`${planname}已加入規劃`);
+              // window.location.href = response.url;
             } else {
               console.error('Error on adding plan.');
+              // console.log(response);
+              window.location.href = response.url;
             }
           })
           .catch(error => console.error('Error:', error));

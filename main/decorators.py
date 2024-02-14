@@ -1,0 +1,4 @@
+from django.utils.decorators import decorator_from_middleware
+from .middleware import LoginRequiredMiddleware
+
+login_required_decorator = decorator_from_middleware(LoginRequiredMiddleware)

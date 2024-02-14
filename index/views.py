@@ -2,6 +2,7 @@ from django.http import HttpResponse, HttpRequest
 from django.forms.models import model_to_dict
 from django.shortcuts import render, redirect
 from pymongo.mongo_client import MongoClient
+from pymongo.server_api import ServerApi
 import os
 from init_db.models import (
     FoodModel,
@@ -69,7 +70,7 @@ def search(request: HttpRequest):
 
 
 uri = os.environ.get("MONGO_URL")
-client = MongoClient(str(uri))
+client = MongoClient(str(uri), server_api=ServerApi("1"))
 db = client["AnthonyHsu"]
 
 
