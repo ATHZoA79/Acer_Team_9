@@ -61,6 +61,7 @@ ACCOUNT_ADAPTER = "allauth.account.adapter.DefaultAccountAdapter"
 
 # Application definition
 SITE_ID = os.environ.get("SITE")
+SITE_ID = 4
 
 INSTALLED_APPS = [
     "django.contrib.admin",

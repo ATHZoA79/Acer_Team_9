@@ -8,7 +8,7 @@ logger = logging.getLogger(__name__)
 
 class LoginRequiredMiddleware(MiddlewareMixin):
     def process_request(self, request, *args, **kargs):
-        if not request.user:
+        if not request.user.is_authenticated:
             return redirect("account_login")
         else:
             response = self.get_response(request, *args, **kargs)
